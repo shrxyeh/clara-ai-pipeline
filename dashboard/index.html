@@ -1,294 +1,508 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Clara AI — Pipeline Dashboard</title>
-<style>
-  :root {
-    --bg: #0f1117;
-    --surface: #1a1d27;
-    --border: #2d3148;
-    --accent: #6c63ff;
-    --accent2: #00d4aa;
-    --danger: #ff5f5f;
-    --warn: #ffb347;
-    --text: #e2e8f0;
-    --muted: #8892a4;
-    --success: #4ade80;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    font-size: 14px;
-    min-height: 100vh;
-  }
-  header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 28px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  header h1 { font-size: 20px; font-weight: 700; color: var(--accent); }
-  header span { color: var(--muted); font-size: 13px; }
-  .container { max-width: 1200px; margin: 0 auto; padding: 24px 28px; }
-  .tabs { display: flex; gap: 8px; margin-bottom: 24px; border-bottom: 1px solid var(--border); }
-  .tab {
-    padding: 8px 20px; cursor: pointer; border-radius: 6px 6px 0 0;
-    color: var(--muted); border: 1px solid transparent; border-bottom: none;
-    transition: all 0.15s;
-  }
-  .tab:hover { color: var(--text); }
-  .tab.active { background: var(--surface); color: var(--accent); border-color: var(--border); }
-  .panel { display: none; }
-  .panel.active { display: block; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px;
-    transition: border-color 0.15s;
-  }
-  .card:hover { border-color: var(--accent); }
-  .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-  .card-title { font-weight: 600; font-size: 15px; }
-  .badge {
-    font-size: 11px; padding: 2px 10px; border-radius: 20px; font-weight: 600;
-  }
-  .badge-v1 { background: #6c63ff22; color: var(--accent); border: 1px solid var(--accent); }
-  .badge-v2 { background: #00d4aa22; color: var(--accent2); border: 1px solid var(--accent2); }
-  .badge-ok { background: #4ade8022; color: var(--success); border: 1px solid var(--success); }
-  .badge-warn { background: #ffb34722; color: var(--warn); border: 1px solid var(--warn); }
-  .badge-err { background: #ff5f5f22; color: var(--danger); border: 1px solid var(--danger); }
-  .card-meta { color: var(--muted); font-size: 12px; margin-bottom: 10px; }
-  .field-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
-  .chip {
-    font-size: 11px; background: #ffffff0a; border: 1px solid var(--border);
-    padding: 2px 8px; border-radius: 4px; color: var(--muted);
-  }
-  .section-title { font-size: 17px; font-weight: 700; margin-bottom: 16px; color: var(--text); }
-  /* Diff viewer */
-  .diff-container {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  .diff-header {
-    display: flex;
-    background: #13151f;
-    border-bottom: 1px solid var(--border);
-    padding: 10px 16px;
-    font-size: 13px;
-    font-weight: 600;
-    gap: 20px;
-  }
-  .diff-account-select {
-    background: var(--bg); border: 1px solid var(--border); color: var(--text);
-    padding: 8px 12px; border-radius: 6px; font-size: 13px; margin-bottom: 16px;
-  }
-  .diff-content { padding: 16px; }
-  .diff-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    margin-bottom: 12px;
-  }
-  .diff-col {
-    padding: 10px 14px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-family: 'Courier New', monospace;
-    white-space: pre-wrap;
-    word-break: break-all;
-  }
-  .diff-col.old { background: #ff5f5f15; border-left: 3px solid var(--danger); }
-  .diff-col.new { background: #4ade8015; border-left: 3px solid var(--success); }
-  .diff-field {
-    font-size: 13px; font-weight: 600; color: var(--accent);
-    margin-bottom: 4px; padding: 4px 0;
-  }
-  .diff-unchanged {
-    background: #ffffff05;
-    padding: 8px 14px;
-    border-radius: 4px;
-    font-size: 12px;
-    color: var(--muted);
-    font-family: monospace;
-    margin-bottom: 6px;
-  }
-  /* Task table */
-  table { width: 100%; border-collapse: collapse; }
-  th {
-    text-align: left; padding: 10px 14px; background: #13151f;
-    border-bottom: 1px solid var(--border); font-size: 12px;
-    color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
-  }
-  td { padding: 10px 14px; border-bottom: 1px solid #1d2035; font-size: 13px; }
-  tr:hover td { background: #ffffff05; }
-  .status-dot {
-    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
-    margin-right: 6px;
-  }
-  .status-completed { background: var(--success); }
-  .status-failed { background: var(--danger); }
-  .status-pending { background: var(--warn); }
-  /* Stats bar */
-  .stats { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
-  .stat-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 8px; padding: 14px 20px; flex: 1; min-width: 130px;
-  }
-  .stat-num { font-size: 28px; font-weight: 700; color: var(--accent2); }
-  .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
-  .no-data { color: var(--muted); text-align: center; padding: 40px; font-style: italic; }
-  .refresh-btn {
-    background: var(--accent); color: white; border: none; padding: 8px 16px;
-    border-radius: 6px; cursor: pointer; font-size: 13px; float: right;
-  }
-  .refresh-btn:hover { opacity: 0.85; }
-</style>
-</head>
-<body>
-<header>
-  <h1>⚡ Clara AI</h1>
-  <span>Pipeline Dashboard — Demo → Retell Agent</span>
-  <button class="refresh-btn" onclick="loadData()">↻ Refresh</button>
-</header>
-
-<div class="container">
-  <div class="tabs">
-    <div class="tab active" onclick="switchTab('accounts')">Accounts</div>
-    <div class="tab" onclick="switchTab('diff')">Diff Viewer</div>
-    <div class="tab" onclick="switchTab('tasks')">Task Tracker</div>
-  </div>
-
-  <!-- ACCOUNTS PANEL -->
-  <div class="panel active" id="panel-accounts">
-    <div class="stats" id="stats-bar"></div>
-    <div class="section-title">Processed Accounts</div>
-    <div class="grid" id="accounts-grid">
-      <div class="no-data">Loading accounts... (run the pipeline first)</div>
-    </div>
-  </div>
-
-  <!-- DIFF VIEWER PANEL -->
-  <div class="panel" id="panel-diff">
-    <div class="section-title">v1 → v2 Diff Viewer</div>
-    <select class="diff-account-select" id="diff-select" onchange="renderDiff()">
-      <option value="">Select an account...</option>
-    </select>
-    <div class="diff-container" id="diff-view">
-      <div class="no-data">Select an account to view changes</div>
-    </div>
-  </div>
-
-  <!-- TASKS PANEL -->
-  <div class="panel" id="panel-tasks">
-    <div class="section-title">Pipeline Task Tracker</div>
-    <div class="diff-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Task ID</th>
-            <th>Account</th>
-            <th>Company</th>
-            <th>Pipeline</th>
-            <th>Status</th>
-            <th>Updated</th>
-          </tr>
-        </thead>
-        <tbody id="tasks-table"></tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<script>
-// Global state
-let state = { accounts: {}, tasks: [], changelog: {} };
-
-// Try to load data from the filesystem via fetch (works when served locally)
-async function loadData() {
-  await Promise.all([loadAccounts(), loadTasks()]);
-}
-
-async function loadAccounts() {
-  const accountIds = ['ACC-001','ACC-002','ACC-003','ACC-004','ACC-005'];
-  const accounts = {};
-
-  for (const id of accountIds) {
-    const acc = { id, v1: null, v2: null, changelog: null };
-
-    try {
-      const r1 = await fetch(`../outputs/accounts/${id}/v1/account_memo.json`);
-      if (r1.ok) acc.v1 = await r1.json();
-    } catch(e) {}
-
-    try {
-      const r2 = await fetch(`../outputs/accounts/${id}/v2/account_memo.json`);
-      if (r2.ok) acc.v2 = await r2.json();
-    } catch(e) {}
-
-    try {
-      const rc = await fetch(`../outputs/accounts/${id}/v2/changes.json`);
-      if (rc.ok) acc.changelog = await rc.json();
-    } catch(e) {}
-
-    if (acc.v1 || acc.v2) accounts[id] = acc;
-  }
-
-  state.accounts = accounts;
-  renderAccounts();
-  populateDiffSelect();
-}
-
-async function loadTasks() {
-  try {
-    const r = await fetch('../changelog/tasks.json');
-    if (r.ok) {
-      const data = await r.json();
-      state.tasks = data.tasks || [];
-      renderTasks();
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clara AI — Pipeline Dashboard</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --border: #2d3148;
+      --accent: #6c63ff;
+      --accent2: #00d4aa;
+      --danger: #ff5f5f;
+      --warn: #ffb347;
+      --text: #e2e8f0;
+      --muted: #8892a4;
+      --success: #4ade80;
     }
-  } catch(e) {}
-}
 
-function renderAccounts() {
-  const grid = document.getElementById('accounts-grid');
-  const statsBar = document.getElementById('stats-bar');
-  const accounts = Object.values(state.accounts);
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  if (!accounts.length) {
-    grid.innerHTML = '<div class="no-data">No processed accounts found. Run <code>python scripts/run_batch.py</code> first.</div>';
-    return;
-  }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 14px;
+      min-height: 100vh;
+    }
 
-  const v1Count = accounts.filter(a => a.v1).length;
-  const v2Count = accounts.filter(a => a.v2).length;
-  const totalChanges = accounts.reduce((sum, a) => sum + (a.changelog?.total_changes || 0), 0);
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
 
-  statsBar.innerHTML = `
+    header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    header span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 28px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tab {
+      padding: 8px 20px;
+      cursor: pointer;
+      border-radius: 6px 6px 0 0;
+      color: var(--muted);
+      border: 1px solid transparent;
+      border-bottom: none;
+      transition: all 0.15s;
+    }
+
+    .tab:hover {
+      color: var(--text);
+    }
+
+    .tab.active {
+      background: var(--surface);
+      color: var(--accent);
+      border-color: var(--border);
+    }
+
+    .panel {
+      display: none;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      transition: border-color 0.15s;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .badge {
+      font-size: 11px;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .badge-v1 {
+      background: #6c63ff22;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+
+    .badge-v2 {
+      background: #00d4aa22;
+      color: var(--accent2);
+      border: 1px solid var(--accent2);
+    }
+
+    .badge-ok {
+      background: #4ade8022;
+      color: var(--success);
+      border: 1px solid var(--success);
+    }
+
+    .badge-warn {
+      background: #ffb34722;
+      color: var(--warn);
+      border: 1px solid var(--warn);
+    }
+
+    .badge-err {
+      background: #ff5f5f22;
+      color: var(--danger);
+      border: 1px solid var(--danger);
+    }
+
+    .card-meta {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .field-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .chip {
+      font-size: 11px;
+      background: #ffffff0a;
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: var(--muted);
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    /* Diff viewer */
+    .diff-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .diff-header {
+      display: flex;
+      background: #13151f;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      gap: 20px;
+    }
+
+    .diff-account-select {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    .diff-content {
+      padding: 16px;
+    }
+
+    .diff-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-bottom: 12px;
+    }
+
+    .diff-col {
+      padding: 10px 14px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .diff-col.old {
+      background: #ff5f5f15;
+      border-left: 3px solid var(--danger);
+    }
+
+    .diff-col.new {
+      background: #4ade8015;
+      border-left: 3px solid var(--success);
+    }
+
+    .diff-field {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 4px;
+      padding: 4px 0;
+    }
+
+    .diff-unchanged {
+      background: #ffffff05;
+      padding: 8px 14px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: var(--muted);
+      font-family: monospace;
+      margin-bottom: 6px;
+    }
+
+    /* Task table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      text-align: left;
+      padding: 10px 14px;
+      background: #13151f;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #1d2035;
+      font-size: 13px;
+    }
+
+    tr:hover td {
+      background: #ffffff05;
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+
+    .status-completed {
+      background: var(--success);
+    }
+
+    .status-failed {
+      background: var(--danger);
+    }
+
+    .status-pending {
+      background: var(--warn);
+    }
+
+    /* Stats bar */
+    .stats {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 20px;
+      flex: 1;
+      min-width: 130px;
+    }
+
+    .stat-num {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent2);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .no-data {
+      color: var(--muted);
+      text-align: center;
+      padding: 40px;
+      font-style: italic;
+    }
+
+    .refresh-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      float: right;
+    }
+
+    .refresh-btn:hover {
+      opacity: 0.85;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1> Clara AI</h1>
+    <span>Pipeline Dashboard — Demo → Retell Agent</span>
+    <button class="refresh-btn" onclick="loadData()">↻ Refresh</button>
+  </header>
+
+  <div class="container">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('accounts')">Accounts</div>
+      <div class="tab" onclick="switchTab('diff')">Diff Viewer</div>
+      <div class="tab" onclick="switchTab('tasks')">Task Tracker</div>
+    </div>
+
+    <!-- ACCOUNTS PANEL -->
+    <div class="panel active" id="panel-accounts">
+      <div class="stats" id="stats-bar"></div>
+      <div class="section-title">Processed Accounts</div>
+      <div class="grid" id="accounts-grid">
+        <div class="no-data">Loading accounts... (run the pipeline first)</div>
+      </div>
+    </div>
+
+    <!-- DIFF VIEWER PANEL -->
+    <div class="panel" id="panel-diff">
+      <div class="section-title">v1 → v2 Diff Viewer</div>
+      <select class="diff-account-select" id="diff-select" onchange="renderDiff()">
+        <option value="">Select an account...</option>
+      </select>
+      <div class="diff-container" id="diff-view">
+        <div class="no-data">Select an account to view changes</div>
+      </div>
+    </div>
+
+    <!-- TASKS PANEL -->
+    <div class="panel" id="panel-tasks">
+      <div class="section-title">Pipeline Task Tracker</div>
+      <div class="diff-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Task ID</th>
+              <th>Account</th>
+              <th>Company</th>
+              <th>Pipeline</th>
+              <th>Status</th>
+              <th>Updated</th>
+            </tr>
+          </thead>
+          <tbody id="tasks-table"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Global state
+    let state = { accounts: {}, tasks: [], changelog: {} };
+
+    // Try to load data from the filesystem via fetch (works when served locally)
+    async function loadData() {
+      await Promise.all([loadAccounts(), loadTasks()]);
+    }
+
+    async function loadAccounts() {
+      const accountIds = ['ACC-001', 'ACC-002', 'ACC-003', 'ACC-004', 'ACC-005'];
+      const accounts = {};
+
+      for (const id of accountIds) {
+        const acc = { id, v1: null, v2: null, changelog: null };
+
+        try {
+          const r1 = await fetch(`../outputs/accounts/${id}/v1/account_memo.json`);
+          if (r1.ok) acc.v1 = await r1.json();
+        } catch (e) { }
+
+        try {
+          const r2 = await fetch(`../outputs/accounts/${id}/v2/account_memo.json`);
+          if (r2.ok) acc.v2 = await r2.json();
+        } catch (e) { }
+
+        try {
+          const rc = await fetch(`../outputs/accounts/${id}/v2/changes.json`);
+          if (rc.ok) acc.changelog = await rc.json();
+        } catch (e) { }
+
+        if (acc.v1 || acc.v2) accounts[id] = acc;
+      }
+
+      state.accounts = accounts;
+      renderAccounts();
+      populateDiffSelect();
+    }
+
+    async function loadTasks() {
+      try {
+        const r = await fetch('../changelog/tasks.json');
+        if (r.ok) {
+          const data = await r.json();
+          state.tasks = data.tasks || [];
+          renderTasks();
+        }
+      } catch (e) { }
+    }
+
+    function renderAccounts() {
+      const grid = document.getElementById('accounts-grid');
+      const statsBar = document.getElementById('stats-bar');
+      const accounts = Object.values(state.accounts);
+
+      if (!accounts.length) {
+        grid.innerHTML = '<div class="no-data">No processed accounts found. Run <code>python scripts/run_batch.py</code> first.</div>';
+        return;
+      }
+
+      const v1Count = accounts.filter(a => a.v1).length;
+      const v2Count = accounts.filter(a => a.v2).length;
+      const totalChanges = accounts.reduce((sum, a) => sum + (a.changelog?.total_changes || 0), 0);
+
+      statsBar.innerHTML = `
     <div class="stat-card"><div class="stat-num">${accounts.length}</div><div class="stat-label">Total Accounts</div></div>
     <div class="stat-card"><div class="stat-num">${v1Count}</div><div class="stat-label">v1 Agents</div></div>
     <div class="stat-card"><div class="stat-num">${v2Count}</div><div class="stat-label">v2 Agents</div></div>
     <div class="stat-card"><div class="stat-num">${totalChanges}</div><div class="stat-label">Total Changes</div></div>
   `;
 
-  grid.innerHTML = accounts.map(acc => {
-    const memo = acc.v2 || acc.v1;
-    const version = acc.v2 ? 'v2' : 'v1';
-    const services = (memo?.services_supported || []).slice(0, 3);
-    const unknowns = (memo?.questions_or_unknowns || []).length;
-    const changes = acc.changelog?.total_changes || 0;
-    const conflicts = acc.changelog?.conflicts_resolved || 0;
+      grid.innerHTML = accounts.map(acc => {
+        const memo = acc.v2 || acc.v1;
+        const version = acc.v2 ? 'v2' : 'v1';
+        const services = (memo?.services_supported || []).slice(0, 3);
+        const unknowns = (memo?.questions_or_unknowns || []).length;
+        const changes = acc.changelog?.total_changes || 0;
+        const conflicts = acc.changelog?.conflicts_resolved || 0;
 
-    return `
+        return `
     <div class="card">
       <div class="card-header">
         <div class="card-title">${memo?.company_name || acc.id}</div>
@@ -296,12 +510,12 @@ function renderAccounts() {
       </div>
       <div class="card-meta">
         ${acc.id} &nbsp;·&nbsp;
-        ${memo?.business_hours?.timezone?.split('/').pop()?.replace('_',' ') || '—'} &nbsp;·&nbsp;
+        ${memo?.business_hours?.timezone?.split('/').pop()?.replace('_', ' ') || '—'} &nbsp;·&nbsp;
         ${memo?.business_hours?.days?.length || '?'} days/wk
       </div>
       <div class="field-row">
         ${services.map(s => `<span class="chip">${s}</span>`).join('')}
-        ${(memo?.services_supported||[]).length > 3 ? `<span class="chip">+${(memo.services_supported.length-3)} more</span>` : ''}
+        ${(memo?.services_supported || []).length > 3 ? `<span class="chip">+${(memo.services_supported.length - 3)} more</span>` : ''}
       </div>
       <div class="field-row" style="margin-top:10px;">
         ${unknowns > 0 ? `<span class="badge badge-warn">${unknowns} unknowns</span>` : '<span class="badge badge-ok">Complete</span>'}
@@ -309,38 +523,38 @@ function renderAccounts() {
         ${conflicts > 0 ? `<span class="badge badge-warn">${conflicts} conflicts resolved</span>` : ''}
       </div>
     </div>`;
-  }).join('');
-}
-
-function populateDiffSelect() {
-  const sel = document.getElementById('diff-select');
-  sel.innerHTML = '<option value="">Select an account...</option>';
-  Object.values(state.accounts).forEach(acc => {
-    if (acc.v1 && acc.v2) {
-      const name = acc.v2?.company_name || acc.id;
-      sel.innerHTML += `<option value="${acc.id}">${acc.id} — ${name}</option>`;
+      }).join('');
     }
-  });
-}
 
-function renderDiff() {
-  const id = document.getElementById('diff-select').value;
-  const view = document.getElementById('diff-view');
-  if (!id) { view.innerHTML = '<div class="no-data">Select an account to view changes</div>'; return; }
+    function populateDiffSelect() {
+      const sel = document.getElementById('diff-select');
+      sel.innerHTML = '<option value="">Select an account...</option>';
+      Object.values(state.accounts).forEach(acc => {
+        if (acc.v1 && acc.v2) {
+          const name = acc.v2?.company_name || acc.id;
+          sel.innerHTML += `<option value="${acc.id}">${acc.id} — ${name}</option>`;
+        }
+      });
+    }
 
-  const acc = state.accounts[id];
-  if (!acc || !acc.v1 || !acc.v2) {
-    view.innerHTML = '<div class="no-data">Both v1 and v2 required for diff. Run both pipelines first.</div>';
-    return;
-  }
+    function renderDiff() {
+      const id = document.getElementById('diff-select').value;
+      const view = document.getElementById('diff-view');
+      if (!id) { view.innerHTML = '<div class="no-data">Select an account to view changes</div>'; return; }
 
-  const diffs = acc.changelog?.memo_changes || [];
-  if (!diffs.length) {
-    view.innerHTML = '<div class="diff-content"><div class="no-data">No tracked field changes found.</div></div>';
-    return;
-  }
+      const acc = state.accounts[id];
+      if (!acc || !acc.v1 || !acc.v2) {
+        view.innerHTML = '<div class="no-data">Both v1 and v2 required for diff. Run both pipelines first.</div>';
+        return;
+      }
 
-  const html = `
+      const diffs = acc.changelog?.memo_changes || [];
+      if (!diffs.length) {
+        view.innerHTML = '<div class="diff-content"><div class="no-data">No tracked field changes found.</div></div>';
+        return;
+      }
+
+      const html = `
     <div class="diff-header">
       <span style="color:var(--danger)">▼ v1 (Before)</span>
       <span style="color:var(--success)">▲ v2 (After)</span>
@@ -348,58 +562,59 @@ function renderDiff() {
     <div class="diff-content">
       ${diffs.map(d => renderDiffEntry(d)).join('')}
     </div>`;
-  view.innerHTML = html;
-}
+      view.innerHTML = html;
+    }
 
-function renderDiffEntry(d) {
-  if (d.change_type === 'value_changed') {
-    return `
+    function renderDiffEntry(d) {
+      if (d.change_type === 'value_changed') {
+        return `
       <div class="diff-field">${d.field}</div>
       <div class="diff-row">
         <div class="diff-col old">${JSON.stringify(d.old, null, 2)}</div>
         <div class="diff-col new">${JSON.stringify(d.new, null, 2)}</div>
       </div>`;
-  } else if (d.change_type === 'list_modified') {
-    return `
+      } else if (d.change_type === 'list_modified') {
+        return `
       <div class="diff-field">${d.field}</div>
-      ${(d.added||[]).map(a => `<div class="diff-col new">+ ${a}</div>`).join('')}
-      ${(d.removed||[]).map(r => `<div class="diff-col old">- ${r}</div>`).join('')}`;
-  } else if (d.change_type === 'object_modified') {
-    return `<div class="diff-field">${d.field} (object)</div>
-      ${(d.sub_changes||[]).map(s => renderDiffEntry(s)).join('')}`;
-  }
-  return `<div class="diff-unchanged">${d.field}: modified</div>`;
-}
+      ${(d.added || []).map(a => `<div class="diff-col new">+ ${a}</div>`).join('')}
+      ${(d.removed || []).map(r => `<div class="diff-col old">- ${r}</div>`).join('')}`;
+      } else if (d.change_type === 'object_modified') {
+        return `<div class="diff-field">${d.field} (object)</div>
+      ${(d.sub_changes || []).map(s => renderDiffEntry(s)).join('')}`;
+      }
+      return `<div class="diff-unchanged">${d.field}: modified</div>`;
+    }
 
-function renderTasks() {
-  const tbody = document.getElementById('tasks-table');
-  if (!state.tasks.length) {
-    tbody.innerHTML = '<tr><td colspan="6" class="no-data">No tasks yet. Run the pipeline first.</td></tr>';
-    return;
-  }
-  tbody.innerHTML = state.tasks.map(t => `
+    function renderTasks() {
+      const tbody = document.getElementById('tasks-table');
+      if (!state.tasks.length) {
+        tbody.innerHTML = '<tr><td colspan="6" class="no-data">No tasks yet. Run the pipeline first.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = state.tasks.map(t => `
     <tr>
       <td><code>${t.task_id}</code></td>
       <td>${t.account_id}</td>
-      <td>${(t.company_name||'').substring(0,28)}</td>
+      <td>${(t.company_name || '').substring(0, 28)}</td>
       <td>${t.pipeline === 'pipeline_a' ? '🅐 Demo→v1' : '🅑 Onboarding→v2'}</td>
       <td>
         <span class="status-dot status-${t.status}"></span>
         ${t.status}
       </td>
-      <td>${(t.updated_at||'').substring(0,10)}</td>
+      <td>${(t.updated_at || '').substring(0, 10)}</td>
     </tr>`).join('');
-}
+    }
 
-function switchTab(name) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelector(`[onclick="switchTab('${name}')"]`).classList.add('active');
-  document.getElementById(`panel-${name}`).classList.add('active');
-}
+    function switchTab(name) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelector(`[onclick="switchTab('${name}')"]`).classList.add('active');
+      document.getElementById(`panel-${name}`).classList.add('active');
+    }
 
-// Initial load
-loadData();
-</script>
+    // Initial load
+    loadData();
+  </script>
 </body>
+
 </html>

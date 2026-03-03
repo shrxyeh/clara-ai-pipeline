@@ -1,6 +1,8 @@
 # Clara AI — Automated Onboarding Pipeline
 
-Processes demo and onboarding call transcripts to produce versioned Retell Agent configurations and structured account memos. Rule-based extraction , no LLM APIs, no external services.
+Processes demo and onboarding call transcripts to produce versioned Retell Agent configurations and structured account memos. Rule-based extraction — no LLM APIs, no external services.
+
+**[Live Dashboard →](https://shrxyeh.github.io/clara-ai-pipeline/dashboard/)**
 
 ---
 
