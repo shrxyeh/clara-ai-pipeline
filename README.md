@@ -105,8 +105,29 @@ python -m http.server 8080
 
 ---
 
+## Known Limitations
+
+- **Regex-only extraction** — works well on structured transcripts; freeform or heavily conversational calls may miss fields or misparse values.
+- **Phone number formats** — covers standard US formats (e.g. `614-555-0182`, `(614) 555-0182`). International, vanity, or non-standard formats may be missed.
+- **No conflict resolution intelligence** — when v1 and v2 data conflict, the system flags the conflict explicitly but does not auto-resolve; a human review step is assumed.
+- **Single account per transcript** — each file must contain exactly one `ACCOUNT: ACC-NNN` header. Multi-account transcripts are not supported.
+- **No audio transcription by default** — Whisper transcription is optional and requires a local GPU or sufficient CPU time. The pipeline is designed to accept pre-transcribed `.txt` files as the primary input.
+- **Mock data only** — all sample transcripts in `dataset/` are synthetic.
+
+---
+
+## What I Would Improve with Production Access
+
+- **LLM extraction layer** — replace regex rules with a structured LLM call (e.g. GPT-4o or Claude) for more robust field extraction from freeform conversations. Keep the rule-based engine as a fallback and validator.
+- **Retell API integration** — with a paid Retell plan, use the Retell API to programmatically create and update agents directly, eliminating the manual import step.
+- **Real-time webhook trigger** — instead of batch processing, trigger Pipeline A automatically when a new demo call recording lands in a cloud storage bucket (S3, GCS), and Pipeline B when an onboarding form is submitted.
+- **Conflict review UI** — add a simple approval step in the dashboard for flagged conflicts before v2 is finalized.
+- **Persistent database** — move from JSON file storage to a proper database (Supabase or Postgres) for querying, filtering, and audit history.
+- **Whisper API or Deepgram** — use a cloud transcription API for faster, more accurate audio-to-text at scale.
+
+---
+
 ## Notes
 
 - All transcripts in `dataset/` are synthetic mock data.
-- Extraction is regex-based and works well on structured transcripts. For freeform conversations, an LLM extraction step would improve accuracy.
-- Phone extraction covers standard US formats. International or vanity numbers may be missed.
+- Extraction is zero-cost: rule-based only, no LLM API calls.
