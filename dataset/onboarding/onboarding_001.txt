@@ -1,0 +1,49 @@
+ACCOUNT: ACC-001
+TYPE: ONBOARDING CALL
+COMPANY: Arctic Air HVAC Solutions
+
+---
+
+Onboarding Specialist (Clara AI): Hi Tom, this is the onboarding call to finalize your Arctic Air agent configuration. I'll walk through what we have and you can confirm or correct anything.
+
+Client (Tom Hargrove): Sounds good, let's do it.
+
+Specialist: We have your hours as Monday-Friday 7 AM to 6 PM, and Saturday 8 AM to 2 PM, Eastern time. Correct?
+
+Client: Mostly — actually we changed Saturday hours. We pushed it to noon now. Eight to noon on Saturdays. We found we weren't getting calls after noon anyway.
+
+Specialist: Got it, Saturday now 8 AM to 12 PM. Office address is 4820 Westview Drive, Columbus, Ohio 43214?
+
+Client: That's right.
+
+Specialist: Emergency triggers — no heat in winter, AC failure in extreme heat, gas leak, property damage risk, safety risk. Still accurate?
+
+Client: Yes, and add one more: if someone says their furnace is making a banging or screeching noise and smells like burning, that should also be flagged as potential emergency.
+
+Specialist: Added. Emergency routing: Tom first at 614-555-0182, then Mike at 614-555-0247, then callback message. Still correct?
+
+Client: Yes, but I want to add a third option now. If both Tom and Mike miss it, try our after-hours answering service at 614-555-0399 before leaving a callback message.
+
+Specialist: Perfect. So the new order is Tom → Mike → answering service at 614-555-0399 → fallback message?
+
+Client: Exactly.
+
+Specialist: Transfer timeout is 40 seconds?
+
+Client: Correct.
+
+Specialist: ServiceTitan constraint — no sprinkler or fire suppression jobs?
+
+Client: Right. Also add: never schedule any job type called "Chimney Sweep" — we trialed it and pulled out.
+
+Specialist: Noted. Any changes to the non-emergency after-hours flow?
+
+Client: Actually, I want to collect their info AND give them a reference number. So they feel like it's logged. Can the AI give them a simple confirmation like "Your request has been noted, reference number will be in your text message"?
+
+Specialist: Absolutely, we can add that to the flow.
+
+Client: Great. One more thing — we added a second office. The new location is 1102 Morse Road, Columbus, Ohio 43229. Started operating last month.
+
+Specialist: Got it — I'll add that as a second address. Anything else?
+
+Client: I think that covers all the changes.

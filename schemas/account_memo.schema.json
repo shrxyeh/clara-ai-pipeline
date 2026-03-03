@@ -1,0 +1,159 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://clara-ai/schemas/account_memo.schema.json",
+  "title": "AccountMemo",
+  "description": "Structured account memo extracted from demo/onboarding call transcripts. No hallucination policy: all unknown fields must be null or listed in questions_or_unknowns.",
+  "type": "object",
+  "required": ["account_id", "company_name", "version", "created_at", "source"],
+  "additionalProperties": false,
+  "properties": {
+    "account_id": {
+      "type": "string",
+      "description": "Unique identifier for the account, e.g. ACC-001"
+    },
+    "company_name": {
+      "type": "string",
+      "description": "Legal or trading name of the company"
+    },
+    "version": {
+      "type": "string",
+      "enum": ["v1", "v2"],
+      "description": "Memo version: v1 from demo call, v2 after onboarding update"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when this memo was created"
+    },
+    "updated_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of last update (null if never updated)"
+    },
+    "source": {
+      "type": "string",
+      "enum": ["demo_call", "onboarding_call", "onboarding_form", "manual"],
+      "description": "Source of the data"
+    },
+    "business_hours": {
+      "type": ["object", "null"],
+      "description": "Operating hours for the business",
+      "properties": {
+        "days": {
+          "type": ["array", "null"],
+          "items": {
+            "type": "string",
+            "enum": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+          }
+        },
+        "start": {
+          "type": ["string", "null"],
+          "description": "Opening time, e.g. '08:00'"
+        },
+        "end": {
+          "type": ["string", "null"],
+          "description": "Closing time, e.g. '17:00'"
+        },
+        "timezone": {
+          "type": ["string", "null"],
+          "description": "IANA timezone, e.g. 'America/New_York' or common abbreviation 'EST'"
+        },
+        "notes": {
+          "type": ["string", "null"],
+          "description": "Any special notes about hours (e.g. 'closed on public holidays')"
+        }
+      }
+    },
+    "office_address": {
+      "type": ["object", "null"],
+      "description": "Physical office address if mentioned",
+      "properties": {
+        "street": { "type": ["string", "null"] },
+        "city": { "type": ["string", "null"] },
+        "state": { "type": ["string", "null"] },
+        "zip": { "type": ["string", "null"] },
+        "full": { "type": ["string", "null"], "description": "Full address as single string" }
+      }
+    },
+    "services_supported": {
+      "type": ["array", "null"],
+      "items": { "type": "string" },
+      "description": "List of service types the company handles (e.g. HVAC, plumbing, electrical)"
+    },
+    "emergency_definition": {
+      "type": ["array", "null"],
+      "items": { "type": "string" },
+      "description": "List of triggers that classify as emergencies (e.g. 'no heat in winter', 'gas leak', 'burst pipe')"
+    },
+    "emergency_routing_rules": {
+      "type": ["object", "null"],
+      "description": "Who to contact and in what order for emergencies",
+      "properties": {
+        "primary_contact": { "type": ["string", "null"] },
+        "primary_phone": { "type": ["string", "null"] },
+        "secondary_contact": { "type": ["string", "null"] },
+        "secondary_phone": { "type": ["string", "null"] },
+        "fallback": { "type": ["string", "null"], "description": "What to do if all contacts fail" },
+        "order": {
+          "type": ["array", "null"],
+          "items": { "type": "string" },
+          "description": "Ordered list of contacts to try"
+        }
+      }
+    },
+    "non_emergency_routing_rules": {
+      "type": ["object", "null"],
+      "description": "Routing logic for non-emergency after-hours calls",
+      "properties": {
+        "action": {
+          "type": ["string", "null"],
+          "enum": ["voicemail", "message_and_callback", "transfer", "schedule_only", null],
+          "description": "What to do with non-emergency after-hours calls"
+        },
+        "voicemail_number": { "type": ["string", "null"] },
+        "callback_promise": { "type": ["string", "null"], "description": "When caller is promised a callback" },
+        "notes": { "type": ["string", "null"] }
+      }
+    },
+    "call_transfer_rules": {
+      "type": ["object", "null"],
+      "description": "Technical rules for call transfer behavior",
+      "properties": {
+        "timeout_seconds": { "type": ["integer", "null"], "description": "Seconds before transfer is considered failed" },
+        "retries": { "type": ["integer", "null"], "description": "Number of transfer retry attempts" },
+        "what_to_say_if_transfer_fails": { "type": ["string", "null"] },
+        "transfer_announcement": { "type": ["string", "null"], "description": "What agent says before transferring" }
+      }
+    },
+    "integration_constraints": {
+      "type": ["array", "null"],
+      "items": { "type": "string" },
+      "description": "Known constraints for service platform integrations (e.g. 'never create sprinkler jobs in ServiceTrade')"
+    },
+    "after_hours_flow_summary": {
+      "type": ["string", "null"],
+      "description": "Plain-language summary of what happens when someone calls after hours"
+    },
+    "office_hours_flow_summary": {
+      "type": ["string", "null"],
+      "description": "Plain-language summary of what happens when someone calls during business hours"
+    },
+    "questions_or_unknowns": {
+      "type": ["array", "null"],
+      "items": { "type": "string" },
+      "description": "Fields that could not be determined from the transcript; must be followed up"
+    },
+    "notes": {
+      "type": ["string", "null"],
+      "description": "Short freeform notes about this account"
+    },
+    "extraction_confidence": {
+      "type": ["object", "null"],
+      "description": "Per-field confidence flags from the extraction engine",
+      "additionalProperties": {
+        "type": "string",
+        "enum": ["high", "medium", "low", "missing"]
+      }
+    }
+  }
+}

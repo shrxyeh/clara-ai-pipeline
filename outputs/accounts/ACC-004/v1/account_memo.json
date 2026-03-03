@@ -1,0 +1,83 @@
+{
+  "account_id": "ACC-004",
+  "company_name": "PureFlow Fire & Water Restoration",
+  "version": "v1",
+  "created_at": "2026-03-03T15:18:09.844824+00:00",
+  "updated_at": null,
+  "source": "demo_call",
+  "business_hours": {
+    "days": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "start": "08:00",
+    "end": "17:00",
+    "timezone": "America/Denver",
+    "notes": null
+  },
+  "office_address": {
+    "full": "2255 Blake Street, Denver, CO 80205",
+    "street": "2255 Blake Street",
+    "city": "Denver",
+    "state": "CO",
+    "zip": "80205"
+  },
+  "services_supported": [
+    "Sewage",
+    "Fire Damage",
+    "Water Damage",
+    "Mold Remediation",
+    "Sewage Cleanup",
+    "Restoration"
+  ],
+  "emergency_definition": [
+    "burst pipe",
+    "flooding",
+    "flood",
+    "active water",
+    "sewage backup",
+    "fire damage",
+    "smoke damage",
+    "mold"
+  ],
+  "emergency_routing_rules": {
+    "primary_contact": null,
+    "primary_phone": "720-555-0211",
+    "secondary_contact": "lead Kevin",
+    "secondary_phone": "720-555-0288",
+    "fallback": "If both fail, take full contact info \u2014 name, address, description of damage \u2014 and promise a callback within 15 minutes",
+    "order": [
+      "720-555-0211",
+      "720-555-0288"
+    ]
+  },
+  "non_emergency_routing_rules": {
+    "action": "message_and_callback",
+    "voicemail_number": null,
+    "callback_promise": "callback within 15 minutes.",
+    "notes": null
+  },
+  "call_transfer_rules": {
+    "timeout_seconds": null,
+    "retries": null,
+    "what_to_say_if_transfer_fails": "If both fail, take full contact info \u2014 name, address, description of damage \u2014 and promise a callback within 15 minutes",
+    "transfer_announcement": "I'm connecting you with our restoration team right away"
+  },
+  "integration_constraints": [
+    "Never create jobs in Dash for roofing claims \u2014 we have a separate partner who handles that"
+  ],
+  "after_hours_flow_summary": "After hours, the agent confirms whether the issue is an emergency. Emergency calls are immediately routed to on-call staff. Non-emergency calls receive a message-taking flow with a next-business-day callback promise.",
+  "office_hours_flow_summary": "During business hours (Monday, Tuesday, Wednesday, Thursday, Friday 08:00\u201317:00 Denver), calls are answered and routed to the main office or scheduling desk. If transfer fails, a message is taken and callback is promised.",
+  "questions_or_unknowns": null,
+  "notes": "Extracted from demo_call transcript via rule-based engine.",
+  "extraction_confidence": {
+    "company_name": "high",
+    "business_hours": "high",
+    "emergency_definition": "high",
+    "emergency_routing_rules": "high",
+    "call_transfer_rules": "medium"
+  }
+}

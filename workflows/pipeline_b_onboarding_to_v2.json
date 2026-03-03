@@ -1,0 +1,168 @@
+{
+  "name": "Clara AI — Pipeline B: Onboarding → v2 Agent + Changelog",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "/webhook/clara-onboarding",
+        "httpMethod": "POST",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [180, 300],
+      "notes": "Receives POST with account_id and optional onboarding file path. Alternatively use Schedule Trigger for batch."
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{"triggerAtHour": 9}]
+        }
+      },
+      "id": "schedule-trigger-b",
+      "name": "Schedule Trigger (Batch)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [180, 500],
+      "notes": "Alternative: run batch nightly"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normalize trigger input — works for both webhook and schedule\nconst input = $input.first();\nconst body = input.json.body || input.json || {};\n\nreturn [{\n  json: {\n    account_id: body.account_id || null,\n    file_path: body.file_path || null,\n    triggered_by: body.account_id ? 'webhook' : 'schedule',\n  }\n}];"
+      },
+      "id": "normalize-input",
+      "name": "Normalize Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [400, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.triggered_by }}",
+              "operation": "equal",
+              "value2": "webhook"
+            }
+          ]
+        }
+      },
+      "id": "check-trigger-type",
+      "name": "Single or Batch?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [620, 300]
+    },
+    {
+      "parameters": {
+        "command": "cd {{ $env.REPO_ROOT }} && python3 scripts/run_batch.py --pipeline b --account {{ $json.account_id }} --log-level INFO"
+      },
+      "id": "run-single-account",
+      "name": "Run Pipeline B (Single Account)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [840, 200]
+    },
+    {
+      "parameters": {
+        "command": "cd {{ $env.REPO_ROOT }} && python3 scripts/run_batch.py --pipeline b --log-level INFO"
+      },
+      "id": "run-batch-all",
+      "name": "Run Pipeline B (All Accounts)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [840, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Load v2 outputs and changelog for all processed accounts\nconst stdout = $json.stdout || '';\nconst repoRoot = process.env.REPO_ROOT || '.';\nconst fs = require('fs');\nconst path = require('path');\n\n// Parse run summary\nlet summary = {};\ntry {\n  const summaryPath = path.join(repoRoot, 'run_summary.json');\n  if (fs.existsSync(summaryPath)) {\n    summary = JSON.parse(fs.readFileSync(summaryPath, 'utf8'));\n  }\n} catch (e) {}\n\nconst pipelineB = summary.pipeline_b || [];\nconst results = [];\n\nfor (const run of pipelineB) {\n  if (run.status !== 'success') continue;\n  const accountId = run.account_id;\n  \n  let v2Memo = null;\n  let changesMd = null;\n  let changesJson = null;\n  \n  try {\n    const v2MemoPath = run.v2_memo_path;\n    if (v2MemoPath && fs.existsSync(v2MemoPath)) {\n      v2Memo = JSON.parse(fs.readFileSync(v2MemoPath, 'utf8'));\n    }\n    const changesMdPath = run.changes_md_path;\n    if (changesMdPath && fs.existsSync(changesMdPath)) {\n      changesMd = fs.readFileSync(changesMdPath, 'utf8');\n    }\n  } catch (e) {}\n  \n  results.push({\n    json: {\n      account_id: accountId,\n      company_name: run.company_name || v2Memo?.company_name,\n      status: 'success',\n      total_changes: run.total_changes || 0,\n      conflicts_resolved: run.conflicts_resolved || 0,\n      v2_memo_path: run.v2_memo_path,\n      v2_spec_path: run.v2_spec_path,\n      changes_md_path: run.changes_md_path,\n      changelog_preview: changesMd ? changesMd.substring(0, 500) + '...' : null,\n    }\n  });\n}\n\nif (results.length === 0) {\n  return [{ json: { status: 'no_results', stdout } }];\n}\nreturn results;"
+      },
+      "id": "load-v2-outputs",
+      "name": "Load v2 Outputs + Changelog",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1060, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Update tracker for pipeline B completion\nconst item = $json;\nreturn [{\n  json: {\n    ...item,\n    tracker_updated: true,\n    pipeline: 'pipeline_b',\n  }\n}];"
+      },
+      "id": "update-tracker",
+      "name": "Update Tracker",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1280, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ status: $json.status, account_id: $json.account_id, total_changes: $json.total_changes }) }}"
+      },
+      "id": "webhook-response",
+      "name": "Webhook Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1500, 300],
+      "notes": "Returns JSON response to webhook caller"
+    },
+    {
+      "parameters": {
+        "message": "Pipeline B COMPLETE: {{ $json.account_id }} — {{ $json.total_changes }} changes applied, {{ $json.conflicts_resolved }} conflicts resolved. Changelog: {{ $json.changes_md_path }}"
+      },
+      "id": "log-b-success",
+      "name": "Log Pipeline B Success",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [1720, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [[{"node": "Normalize Input", "type": "main", "index": 0}]]
+    },
+    "Schedule Trigger (Batch)": {
+      "main": [[{"node": "Normalize Input", "type": "main", "index": 0}]]
+    },
+    "Normalize Input": {
+      "main": [[{"node": "Single or Batch?", "type": "main", "index": 0}]]
+    },
+    "Single or Batch?": {
+      "main": [
+        [{"node": "Run Pipeline B (Single Account)", "type": "main", "index": 0}],
+        [{"node": "Run Pipeline B (All Accounts)", "type": "main", "index": 0}]
+      ]
+    },
+    "Run Pipeline B (Single Account)": {
+      "main": [[{"node": "Load v2 Outputs + Changelog", "type": "main", "index": 0}]]
+    },
+    "Run Pipeline B (All Accounts)": {
+      "main": [[{"node": "Load v2 Outputs + Changelog", "type": "main", "index": 0}]]
+    },
+    "Load v2 Outputs + Changelog": {
+      "main": [[{"node": "Update Tracker", "type": "main", "index": 0}]]
+    },
+    "Update Tracker": {
+      "main": [[{"node": "Webhook Response", "type": "main", "index": 0}]]
+    },
+    "Webhook Response": {
+      "main": [[{"node": "Log Pipeline B Success", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "meta": {
+    "instanceId": "clara-ai-pipeline-b"
+  },
+  "tags": [
+    {"name": "clara-ai"},
+    {"name": "pipeline-b"},
+    {"name": "onboarding-to-v2"}
+  ],
+  "_description": "Pipeline B: Ingests onboarding transcripts, extracts updates, patches v1 memo to produce v2, generates v2 Retell spec, produces changelog. Triggered via webhook or scheduled batch."
+}

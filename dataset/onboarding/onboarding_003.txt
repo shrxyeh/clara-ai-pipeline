@@ -1,0 +1,45 @@
+ACCOUNT: ACC-003
+TYPE: ONBOARDING CALL
+COMPANY: Bolt Electric Services
+
+---
+
+Onboarding Specialist (Clara AI): Hi James, I'm here to confirm your Bolt Electric configuration and finalize any updates.
+
+Client (James Okafor): Great, let's run through it.
+
+Specialist: Business address: 9400 N. 19th Avenue, Suite 200, Phoenix AZ 85021. Hours: Monday-Friday, 7 AM to 4:30 PM, MST year-round.
+
+Client: Address is correct. We actually expanded our hours to 5:30 PM now. We've been getting a lot of end-of-day calls we were missing.
+
+Specialist: Monday-Friday 7 AM to 5:30 PM MST?
+
+Client: Yes.
+
+Specialist: Emergency definition: complete power outage at commercial facility, exposed wiring or arcing, electrical fire risk, panel failure, immediate safety risk.
+
+Client: Correct. Also add: elevator electrical failure — we service a lot of commercial buildings and that's urgent.
+
+Specialist: Added. Emergency routing: dispatch line 602-555-0444, then James at 602-555-0512, then 911 guidance?
+
+Client: The dispatch line changed — it's now 602-555-0450. Everything else is the same.
+
+Specialist: Updated to 602-555-0450. Non-emergency after hours — collect name, phone, location, issue description?
+
+Client: Yes, still the same. But I'd like the AI to give an estimated next-business-day response confirmation explicitly.
+
+Specialist: Got it. Business hours transfer: main office 602-555-0400, then Lisa Chen at 602-555-0421?
+
+Client: Lisa's extension changed. She's now at 602-555-0429.
+
+Specialist: Updated. FieldEdge constraint — no residential jobs?
+
+Client: Still correct. Add: never book any job labelled "residential panel upgrade" — those all need a quote first.
+
+Specialist: Noted. Transfer timeout 45 seconds, two retries?
+
+Client: We want to reduce that to 35 seconds and keep two retries. Things were dragging on too long.
+
+Specialist: 35 seconds, two retries. Anything else?
+
+Client: No, I think that's all.

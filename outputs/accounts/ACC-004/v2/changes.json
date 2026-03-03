@@ -1,0 +1,135 @@
+{
+  "account_id": "ACC-004",
+  "generated_at": "2026-03-03T15:26:29.509286+00:00",
+  "version_transition": "v1_to_v2",
+  "memo_changes": [
+    {
+      "field": "call_transfer_rules",
+      "change_type": "object_modified",
+      "sub_changes": [
+        {
+          "field": "call_transfer_rules.retries",
+          "change_type": "value_changed",
+          "old": null,
+          "new": 1
+        },
+        {
+          "field": "call_transfer_rules.timeout_seconds",
+          "change_type": "value_changed",
+          "old": null,
+          "new": 30
+        }
+      ]
+    },
+    {
+      "field": "emergency_definition",
+      "change_type": "list_modified",
+      "added": [
+        "biohazard"
+      ],
+      "removed": []
+    },
+    {
+      "field": "emergency_routing_rules",
+      "change_type": "object_modified",
+      "sub_changes": [
+        {
+          "field": "emergency_routing_rules.order",
+          "change_type": "list_modified",
+          "added": [
+            "720-555-0290"
+          ],
+          "removed": []
+        }
+      ]
+    },
+    {
+      "field": "integration_constraints",
+      "change_type": "list_modified",
+      "added": [
+        "never create an estimate in Dash without a confirmed site inspection date",
+        "Dash constraint \u2014 no roofing claims"
+      ],
+      "removed": []
+    },
+    {
+      "field": "services_supported",
+      "change_type": "list_modified",
+      "added": [
+        "Biohazard",
+        "Crime Scene Cleanup"
+      ],
+      "removed": []
+    },
+    {
+      "field": "source",
+      "change_type": "value_changed",
+      "old": "demo_call",
+      "new": "onboarding_call"
+    }
+  ],
+  "spec_changes": [
+    {
+      "field": "call_transfer_protocol",
+      "change_type": "object_modified",
+      "sub_changes": [
+        {
+          "field": "call_transfer_protocol.timeout_seconds",
+          "change_type": "value_changed",
+          "old": 45,
+          "new": 30
+        }
+      ]
+    },
+    {
+      "field": "key_variables",
+      "change_type": "object_modified",
+      "sub_changes": [
+        {
+          "field": "key_variables.services_list",
+          "change_type": "value_changed",
+          "old": "Sewage, Fire Damage, Water Damage, Mold Remediation, Sewage Cleanup, Restoration",
+          "new": "Sewage, Fire Damage, Water Damage, Mold Remediation, Sewage Cleanup, Restoration, Biohazard, Crime Scene Cleanup"
+        }
+      ]
+    }
+  ],
+  "conflicts_resolved": [],
+  "patch_log": [
+    {
+      "field": "emergency_definition",
+      "action": "merged",
+      "added": [
+        "biohazard"
+      ],
+      "source": "onboarding_call",
+      "reason": "New items added during onboarding"
+    },
+    {
+      "field": "services_supported",
+      "action": "merged",
+      "added": [
+        "Biohazard",
+        "Crime Scene Cleanup"
+      ],
+      "source": "onboarding_call",
+      "reason": "New items added during onboarding"
+    },
+    {
+      "field": "integration_constraints",
+      "action": "merged",
+      "added": [
+        "never create an estimate in Dash without a confirmed site inspection date",
+        "Dash constraint \u2014 no roofing claims"
+      ],
+      "source": "onboarding_call",
+      "reason": "New items added during onboarding"
+    },
+    {
+      "field": "office_hours_flow_summary",
+      "action": "regenerated",
+      "reason": "Regenerated due to business hours change"
+    }
+  ],
+  "total_changes": 8
+}

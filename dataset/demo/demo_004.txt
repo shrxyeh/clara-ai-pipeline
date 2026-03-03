@@ -1,0 +1,51 @@
+ACCOUNT: ACC-004
+TYPE: DEMO CALL
+COMPANY: PureFlow Fire & Water Restoration
+
+---
+
+Sales Rep (Clara AI): Hello! Tell me about PureFlow and how you handle inbound calls.
+
+Client (Maria Contino, Owner): Hi, we're PureFlow Fire and Water Restoration. We handle water damage, fire damage cleanup, mold remediation, and sewage cleanup. Based in Denver, Colorado.
+
+Sales Rep: What's your business address?
+
+Client: 2255 Blake Street, Denver, CO 80205.
+
+Sales Rep: And your hours?
+
+Client: Monday through Friday, 8 AM to 5 PM Mountain time. But honestly — we're a restoration company, disasters don't keep business hours. Our after-hours emergency line is always staffed.
+
+Sales Rep: What counts as an emergency for you?
+
+Client: Active water intrusion — burst pipe, flooding, storm damage. Fire or smoke damage when the incident is fresh. Sewage backup. Basically anything where delay causes more damage. If someone's standing in three inches of water, that's a call we need to take now.
+
+Sales Rep: Who gets called for emergencies?
+
+Client: Our 24/7 emergency coordinator at 720-555-0211. If no answer in 30 seconds, try operations lead Kevin at 720-555-0288. If both fail, take full contact info — name, address, description of damage — and promise a callback within 15 minutes.
+
+Sales Rep: After-hours non-emergencies?
+
+Client: Message and callback. Get their details, confirm we'll call during business hours to schedule an assessment.
+
+Sales Rep: Business hours?
+
+Client: Route to main office at 720-555-0200. If that doesn't answer in 30 seconds, try our office coordinator at 720-555-0201.
+
+Sales Rep: Integration constraints?
+
+Client: We use Xactimate for estimates and Dash for job management. Never create jobs in Dash for roofing claims — we have a separate partner who handles that. Restoration jobs only.
+
+Sales Rep: Transfer timeout?
+
+Client: 30 seconds per attempt, retry once.
+
+Sales Rep: What should be said before transferring?
+
+Client: "I'm connecting you with our restoration team right away." We want it to feel urgent because it usually is.
+
+Sales Rep: Any other notes?
+
+Client: Empathy is really important for our callers. They're often in a really stressful situation — their home is flooded or burned. The agent should sound calm and caring.
+
+Sales Rep: Noted. I think we have everything.

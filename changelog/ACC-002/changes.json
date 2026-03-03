@@ -1,0 +1,83 @@
+{
+  "account_id": "ACC-002",
+  "generated_at": "2026-03-03T15:26:29.488788+00:00",
+  "version_transition": "v1_to_v2",
+  "memo_changes": [
+    {
+      "field": "call_transfer_rules",
+      "change_type": "object_modified",
+      "sub_changes": [
+        {
+          "field": "call_transfer_rules.retries",
+          "change_type": "value_changed",
+          "old": null,
+          "new": 1
+        }
+      ]
+    },
+    {
+      "field": "emergency_definition",
+      "change_type": "list_modified",
+      "added": [
+        "water heater explosion"
+      ],
+      "removed": []
+    },
+    {
+      "field": "emergency_routing_rules",
+      "change_type": "object_modified",
+      "sub_changes": [
+        {
+          "field": "emergency_routing_rules.order",
+          "change_type": "list_modified",
+          "added": [
+            "512-555-0322"
+          ],
+          "removed": []
+        }
+      ]
+    },
+    {
+      "field": "integration_constraints",
+      "change_type": "list_modified",
+      "added": [
+        "ServiceTrade constraints \u2014 no gas line jobs, no weekend bookings via ServiceTrade"
+      ],
+      "removed": []
+    },
+    {
+      "field": "source",
+      "change_type": "value_changed",
+      "old": "demo_call",
+      "new": "onboarding_call"
+    }
+  ],
+  "spec_changes": [],
+  "conflicts_resolved": [],
+  "patch_log": [
+    {
+      "field": "emergency_definition",
+      "action": "merged",
+      "added": [
+        "water heater explosion"
+      ],
+      "source": "onboarding_call",
+      "reason": "New items added during onboarding"
+    },
+    {
+      "field": "integration_constraints",
+      "action": "merged",
+      "added": [
+        "ServiceTrade constraints \u2014 no gas line jobs, no weekend bookings via ServiceTrade"
+      ],
+      "source": "onboarding_call",
+      "reason": "New items added during onboarding"
+    },
+    {
+      "field": "office_hours_flow_summary",
+      "action": "regenerated",
+      "reason": "Regenerated due to business hours change"
+    }
+  ],
+  "total_changes": 5
+}

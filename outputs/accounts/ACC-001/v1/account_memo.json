@@ -1,0 +1,79 @@
+{
+  "account_id": "ACC-001",
+  "company_name": "Arctic Air HVAC Solutions",
+  "version": "v1",
+  "created_at": "2026-03-03T15:18:09.800824+00:00",
+  "updated_at": null,
+  "source": "demo_call",
+  "business_hours": {
+    "days": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "start": "07:00",
+    "end": "18:00",
+    "timezone": "America/New_York",
+    "notes": null
+  },
+  "office_address": {
+    "full": "4820 Westview Drive, Columbus, Ohio, 43214",
+    "street": "4820 Westview Drive",
+    "city": "Columbus",
+    "zip": "43214",
+    "state": "Ohio"
+  },
+  "services_supported": [
+    "Hvac",
+    "Heating",
+    "Ventilation",
+    "Air Conditioning",
+    "Fire Suppression",
+    "Sprinkler",
+    "Ventilation"
+  ],
+  "emergency_definition": [
+    "no heat",
+    "gas leak",
+    "safety risk"
+  ],
+  "emergency_routing_rules": {
+    "primary_contact": "Tom",
+    "primary_phone": "614-555-0182",
+    "secondary_contact": "lead tech",
+    "secondary_phone": "614-555-0247",
+    "fallback": "If both fail, leave a message and tell the customer we'll call back within the hour",
+    "order": [
+      "614-555-0182",
+      "614-555-0247"
+    ]
+  },
+  "non_emergency_routing_rules": {
+    "action": "voicemail",
+    "voicemail_number": "614-555-0101",
+    "callback_promise": "next business day",
+    "notes": null
+  },
+  "call_transfer_rules": {
+    "timeout_seconds": 40,
+    "retries": null,
+    "what_to_say_if_transfer_fails": "If both fail, leave a message and tell the customer we'll call back within the hour",
+    "transfer_announcement": "You are being connected to our team now."
+  },
+  "integration_constraints": [
+    "never create jobs for sprinkler or fire suppression work"
+  ],
+  "after_hours_flow_summary": "After hours, the agent confirms whether the issue is an emergency. Emergency calls are immediately routed to on-call staff. Non-emergency calls receive a message-taking flow with a next-business-day callback promise.",
+  "office_hours_flow_summary": "During business hours (Monday, Tuesday, Wednesday, Thursday, Friday 07:00\u201318:00 New_York), calls are answered and routed to the main office or scheduling desk. If transfer fails, a message is taken and callback is promised.",
+  "questions_or_unknowns": null,
+  "notes": "Extracted from demo_call transcript via rule-based engine.",
+  "extraction_confidence": {
+    "company_name": "high",
+    "business_hours": "high",
+    "emergency_definition": "high",
+    "emergency_routing_rules": "high",
+    "call_transfer_rules": "high"
+  }
+}

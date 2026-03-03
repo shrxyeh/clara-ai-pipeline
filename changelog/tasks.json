@@ -1,0 +1,180 @@
+{
+  "tasks": [
+    {
+      "task_id": "a3ed56bc",
+      "account_id": "ACC-001",
+      "company_name": "Arctic Air HVAC Solutions",
+      "pipeline": "pipeline_a",
+      "status": "completed",
+      "created_at": "2026-03-03T13:01:47.119420+00:00",
+      "updated_at": "2026-03-03T15:18:09.822325+00:00",
+      "v1_outputs": [
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-001/v1/account_memo.json",
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-001/v1/retell_agent_spec.json"
+      ],
+      "v2_outputs": [],
+      "changelog_path": null,
+      "notes": "v1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03"
+    },
+    {
+      "task_id": "937ba795",
+      "account_id": "ACC-002",
+      "company_name": "Clearflow Plumbing & Drain",
+      "pipeline": "pipeline_a",
+      "status": "completed",
+      "created_at": "2026-03-03T13:01:47.147700+00:00",
+      "updated_at": "2026-03-03T15:18:09.833150+00:00",
+      "v1_outputs": [
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-002/v1/account_memo.json",
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-002/v1/retell_agent_spec.json"
+      ],
+      "v2_outputs": [],
+      "changelog_path": null,
+      "notes": "v1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03"
+    },
+    {
+      "task_id": "331b761c",
+      "account_id": "ACC-003",
+      "company_name": "Bolt Electric Services",
+      "pipeline": "pipeline_a",
+      "status": "completed",
+      "created_at": "2026-03-03T13:01:47.167196+00:00",
+      "updated_at": "2026-03-03T15:18:09.843156+00:00",
+      "v1_outputs": [
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-003/v1/account_memo.json",
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-003/v1/retell_agent_spec.json"
+      ],
+      "v2_outputs": [],
+      "changelog_path": null,
+      "notes": "v1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03"
+    },
+    {
+      "task_id": "83bcaa50",
+      "account_id": "ACC-004",
+      "company_name": "PureFlow Fire & Water Restoration",
+      "pipeline": "pipeline_a",
+      "status": "completed",
+      "created_at": "2026-03-03T13:01:47.194501+00:00",
+      "updated_at": "2026-03-03T15:18:09.851326+00:00",
+      "v1_outputs": [
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-004/v1/account_memo.json",
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-004/v1/retell_agent_spec.json"
+      ],
+      "v2_outputs": [],
+      "changelog_path": null,
+      "notes": "v1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03"
+    },
+    {
+      "task_id": "6c7a5d67",
+      "account_id": "ACC-005",
+      "company_name": "Greentech Mechanical Contractors",
+      "pipeline": "pipeline_a",
+      "status": "completed",
+      "created_at": "2026-03-03T13:01:47.212215+00:00",
+      "updated_at": "2026-03-03T15:18:09.862134+00:00",
+      "v1_outputs": [
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-005/v1/account_memo.json",
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-005/v1/retell_agent_spec.json"
+      ],
+      "v2_outputs": [],
+      "changelog_path": null,
+      "notes": "v1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03"
+    },
+    {
+      "task_id": "139bbe82",
+      "account_id": "ACC-001",
+      "company_name": "Arctic Air HVAC Solutions",
+      "pipeline": "pipeline_b",
+      "status": "completed",
+      "created_at": "2026-03-03T13:01:55.326917+00:00",
+      "updated_at": "2026-03-03T15:26:29.481997+00:00",
+      "v1_outputs": [
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-001/v1/account_memo.json",
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-001/v1/retell_agent_spec.json"
+      ],
+      "v2_outputs": [
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-001/v2/account_memo.json",
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-001/v2/retell_agent_spec.json"
+      ],
+      "changelog_path": "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-001/v2/changes.md",
+      "notes": "v2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts."
+    },
+    {
+      "task_id": "2cbd71f4",
+      "account_id": "ACC-002",
+      "company_name": "Clearflow Plumbing & Drain",
+      "pipeline": "pipeline_b",
+      "status": "completed",
+      "created_at": "2026-03-03T13:01:55.372826+00:00",
+      "updated_at": "2026-03-03T15:26:29.491284+00:00",
+      "v1_outputs": [
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-002/v1/account_memo.json",
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-002/v1/retell_agent_spec.json"
+      ],
+      "v2_outputs": [
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-002/v2/account_memo.json",
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-002/v2/retell_agent_spec.json"
+      ],
+      "changelog_path": "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-002/v2/changes.md",
+      "notes": "v2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts."
+    },
+    {
+      "task_id": "166d2fe2",
+      "account_id": "ACC-003",
+      "company_name": "Bolt Electric Services",
+      "pipeline": "pipeline_b",
+      "status": "completed",
+      "created_at": "2026-03-03T13:01:55.422127+00:00",
+      "updated_at": "2026-03-03T15:26:29.500654+00:00",
+      "v1_outputs": [
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-003/v1/account_memo.json",
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-003/v1/retell_agent_spec.json"
+      ],
+      "v2_outputs": [
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-003/v2/account_memo.json",
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-003/v2/retell_agent_spec.json"
+      ],
+      "changelog_path": "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-003/v2/changes.md",
+      "notes": "v2 generated from onboarding on 2026-03-03. 2 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 1 conflicts."
+    },
+    {
+      "task_id": "1eafccf0",
+      "account_id": "ACC-004",
+      "company_name": "PureFlow Fire & Water Restoration",
+      "pipeline": "pipeline_b",
+      "status": "completed",
+      "created_at": "2026-03-03T13:01:55.477995+00:00",
+      "updated_at": "2026-03-03T15:26:29.511462+00:00",
+      "v1_outputs": [
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-004/v1/account_memo.json",
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-004/v1/retell_agent_spec.json"
+      ],
+      "v2_outputs": [
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-004/v2/account_memo.json",
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-004/v2/retell_agent_spec.json"
+      ],
+      "changelog_path": "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-004/v2/changes.md",
+      "notes": "v2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts."
+    },
+    {
+      "task_id": "ba988f96",
+      "account_id": "ACC-005",
+      "company_name": "Greentech Mechanical Contractors",
+      "pipeline": "pipeline_b",
+      "status": "completed",
+      "created_at": "2026-03-03T13:01:55.533690+00:00",
+      "updated_at": "2026-03-03T15:26:29.521106+00:00",
+      "v1_outputs": [
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-005/v1/account_memo.json",
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-005/v1/retell_agent_spec.json"
+      ],
+      "v2_outputs": [
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-005/v2/account_memo.json",
+        "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-005/v2/retell_agent_spec.json"
+      ],
+      "changelog_path": "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-005/v2/changes.md",
+      "notes": "v2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 5 changes, 2 conflicts.\nv2 generated from onboarding on 2026-03-03. 5 changes, 2 conflicts.\nv2 generated from onboarding on 2026-03-03. 5 changes, 2 conflicts.\nv2 generated from onboarding on 2026-03-03. 5 changes, 2 conflicts.\nv2 generated from onboarding on 2026-03-03. 5 changes, 2 conflicts.\nv2 generated from onboarding on 2026-03-03. 5 changes, 2 conflicts."
+    }
+  ],
+  "last_updated": "2026-03-03T15:26:29.521159+00:00"
+}

@@ -1,0 +1,53 @@
+ACCOUNT: ACC-001
+TYPE: DEMO CALL
+COMPANY: Arctic Air HVAC Solutions
+
+---
+
+Sales Rep (Clara AI): Hi, thanks for taking the time to chat today. I'm with Clara AI and I'd love to understand how your business handles inbound calls so we can set up your AI receptionist properly.
+
+Client (Tom Hargrove, Owner): Sure, yeah. We're Arctic Air, we do HVAC — heating, ventilation, air conditioning. Mostly residential, some light commercial.
+
+Sales Rep: Great. What are your normal business hours?
+
+Client: Monday through Friday, seven AM to six PM. And Saturday, eight to two. Closed Sundays. We're in the Eastern time zone, out of Columbus, Ohio.
+
+Sales Rep: Perfect. And your office address?
+
+Client: 4820 Westview Drive, Columbus, Ohio, 43214.
+
+Sales Rep: When someone calls after hours, what should the AI do?
+
+Client: Well, emergencies need to go straight through. If someone's got no heat in the middle of winter, or their AC died in July and it's a hundred degrees — that's an emergency. Also gas leaks, obviously. Anything that could damage property or harm someone.
+
+Sales Rep: Got it. For those emergencies, who should the AI call?
+
+Client: First try me, Tom, at 614-555-0182. If I don't pick up within three rings or thirty seconds, try Mike, our lead tech, at 614-555-0247. If neither of us answers, the caller should be told we're getting someone out as soon as possible, and to call 911 if there's any safety risk.
+
+Sales Rep: How many times should it retry before giving up?
+
+Client: Try each number once. So Tom first, Mike second. If both fail, leave a message and tell the customer we'll call back within the hour.
+
+Sales Rep: What about non-emergency after-hours calls — like someone just wants to schedule a tune-up?
+
+Client: Take a message. Get their name, callback number, and what they need. We'll call them back next business day.
+
+Sales Rep: During business hours, what should happen?
+
+Client: Transfer the call to our main office line, 614-555-0100. If that's busy or no answer, try the scheduling desk at 614-555-0101. If still nothing, take a message.
+
+Sales Rep: Do you use any service management software we should know about?
+
+Client: Yeah, we use ServiceTitan. One thing — never create jobs for sprinkler or fire suppression work. We don't do that even though ServiceTitan supports it. Only HVAC jobs.
+
+Sales Rep: Any other constraints or things the AI should know?
+
+Client: When transferring, always tell the caller they're being connected to our team before you do it. And if a transfer fails, don't just hang up — apologize and confirm you've got their info.
+
+Sales Rep: How long should the system wait before deciding a transfer has failed?
+
+Client: Give it 40 seconds.
+
+Sales Rep: Anything else you want the AI to handle?
+
+Client: Not right now. I think that covers it.

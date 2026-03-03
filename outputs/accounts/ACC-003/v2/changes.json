@@ -1,0 +1,115 @@
+{
+  "account_id": "ACC-003",
+  "generated_at": "2026-03-03T15:26:29.498578+00:00",
+  "version_transition": "v1_to_v2",
+  "memo_changes": [
+    {
+      "field": "business_hours",
+      "change_type": "object_modified",
+      "sub_changes": [
+        {
+          "field": "business_hours.end",
+          "change_type": "value_changed",
+          "old": "16:00",
+          "new": "16:30"
+        }
+      ]
+    },
+    {
+      "field": "call_transfer_rules",
+      "change_type": "object_modified",
+      "sub_changes": [
+        {
+          "field": "call_transfer_rules.timeout_seconds",
+          "change_type": "value_changed",
+          "old": null,
+          "new": 45
+        }
+      ]
+    },
+    {
+      "field": "emergency_routing_rules",
+      "change_type": "object_modified",
+      "sub_changes": [
+        {
+          "field": "emergency_routing_rules.order",
+          "change_type": "list_modified",
+          "added": [
+            "602-555-0450"
+          ],
+          "removed": []
+        }
+      ]
+    },
+    {
+      "field": "integration_constraints",
+      "change_type": "list_modified",
+      "added": [
+        "never book any job labelled \"residential panel upgrade\" \u2014 those all need a quote first",
+        "FieldEdge constraint \u2014 no residential jobs"
+      ],
+      "removed": []
+    },
+    {
+      "field": "office_hours_flow_summary",
+      "change_type": "value_changed",
+      "old": "During business hours (Monday, Tuesday, Wednesday, Thursday, Friday 07:00\u201316:00 Denver), calls are answered and routed to the main office or scheduling desk. If transfer fails, a message is taken and callback is promised.",
+      "new": "During business hours (Monday, Tuesday, Wednesday, Thursday, Friday 07:00\u201316:30 Denver), calls are answered and routed to the main office or scheduling desk. If transfer fails, a message is taken and callback is promised."
+    },
+    {
+      "field": "source",
+      "change_type": "value_changed",
+      "old": "demo_call",
+      "new": "onboarding_call"
+    }
+  ],
+  "spec_changes": [
+    {
+      "field": "key_variables",
+      "change_type": "object_modified",
+      "sub_changes": [
+        {
+          "field": "key_variables.business_hours_end",
+          "change_type": "value_changed",
+          "old": "16:00",
+          "new": "16:30"
+        }
+      ]
+    }
+  ],
+  "conflicts_resolved": [
+    {
+      "field": "business_hours.end",
+      "v1_value": "16:00",
+      "v2_value": "16:30",
+      "source": "onboarding_call"
+    }
+  ],
+  "patch_log": [
+    {
+      "field": "integration_constraints",
+      "action": "merged",
+      "added": [
+        "never book any job labelled \"residential panel upgrade\" \u2014 those all need a quote first",
+        "FieldEdge constraint \u2014 no residential jobs"
+      ],
+      "source": "onboarding_call",
+      "reason": "New items added during onboarding"
+    },
+    {
+      "field": "business_hours",
+      "action": "updated",
+      "changed_subfields": [
+        "business_hours.end"
+      ],
+      "source": "onboarding_call",
+      "reason": "Fields updated during onboarding"
+    },
+    {
+      "field": "office_hours_flow_summary",
+      "action": "regenerated",
+      "reason": "Regenerated due to business hours change"
+    }
+  ],
+  "total_changes": 7
+}

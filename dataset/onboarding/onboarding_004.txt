@@ -1,0 +1,51 @@
+ACCOUNT: ACC-004
+TYPE: ONBOARDING CALL
+COMPANY: PureFlow Fire & Water Restoration
+
+---
+
+Onboarding Specialist (Clara AI): Hi Maria, let's finalize PureFlow's configuration. I'll verify what we have.
+
+Client (Maria Contino): Perfect, let's go.
+
+Specialist: Address: 2255 Blake Street, Denver CO 80205. Hours: Monday-Friday 8 AM to 5 PM Mountain time?
+
+Client: Yes, both correct.
+
+Specialist: Emergency triggers: active water intrusion, burst pipe, flooding, storm damage, fire/smoke damage when fresh, sewage backup, temperature-sensitive damage risk.
+
+Client: Correct. Also add: mold discovery in a compromised structure — sometimes people call when they've found significant mold in a flooded basement, and that can be an emergency depending on scope.
+
+Specialist: Got it. Emergency routing: 24/7 coordinator at 720-555-0211, then Kevin at 720-555-0288, then callback with 15-minute promise?
+
+Client: Kevin's number is actually wrong in your system. Correct number is 720-555-0290.
+
+Specialist: Updated to 720-555-0290. And the 15-minute callback promise — is that still realistic?
+
+Client: Honestly no, let's change that to 30 minutes. We've had some issues over-promising.
+
+Specialist: Changed to 30-minute callback promise. Non-emergency after hours — message and business hours callback?
+
+Client: Yes, still the same.
+
+Specialist: Business hours: main at 720-555-0200, then coordinator at 720-555-0201?
+
+Client: The coordinator number changed. It's now 720-555-0205.
+
+Specialist: Updated. Dash constraint — no roofing claims?
+
+Client: Still correct. Add: never create an estimate in Dash without a confirmed site inspection date. This is a new policy we started last month.
+
+Specialist: Got it. Transfer timeout 30 seconds, one retry?
+
+Client: Let's keep that.
+
+Specialist: Any other changes?
+
+Client: Yes — we added a service. We now do biohazard and crime scene cleanup. It's classified as an emergency service available 24/7. Please add that to the services list.
+
+Specialist: Added. The emergency tone and callback language stays the same?
+
+Client: Yes, empathy is still key. We just want callers to know we're there.
+
+Specialist: Perfect. I think we have everything.

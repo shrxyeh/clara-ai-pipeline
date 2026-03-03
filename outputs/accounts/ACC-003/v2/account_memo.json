@@ -1,0 +1,113 @@
+{
+  "account_id": "ACC-003",
+  "company_name": "Bolt Electric Services",
+  "version": "v2",
+  "created_at": "2026-03-03T15:18:09.835144+00:00",
+  "updated_at": "2026-03-03T15:26:29.498188+00:00",
+  "source": "onboarding_call",
+  "business_hours": {
+    "days": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "start": "07:00",
+    "end": "16:30",
+    "timezone": "America/Denver",
+    "notes": null
+  },
+  "office_address": {
+    "full": "9400 N. 19th Avenue, Suite 200, Phoenix, AZ 85021",
+    "street": "9400 N. 19th Avenue",
+    "city": "Suite 200",
+    "state": "AZ",
+    "zip": "85021"
+  },
+  "services_supported": [
+    "Electrical",
+    "Electrician",
+    "Wiring",
+    "Panel"
+  ],
+  "emergency_definition": [
+    "power outage",
+    "electrical fire",
+    "arcing",
+    "exposed wiring",
+    "panel failure",
+    "safety risk",
+    "immediate danger"
+  ],
+  "emergency_routing_rules": {
+    "primary_contact": null,
+    "primary_phone": "602-555-0444",
+    "secondary_contact": "James",
+    "secondary_phone": "602-555-0512",
+    "fallback": "Last resort \u2014 tell the caller to call 911 if there's immediate danger, and that we'll have someone there within 2 hours otherwise",
+    "order": [
+      "602-555-0444",
+      "602-555-0512",
+      "602-555-0400",
+      "602-555-0450"
+    ]
+  },
+  "non_emergency_routing_rules": null,
+  "call_transfer_rules": {
+    "timeout_seconds": 45,
+    "retries": 2,
+    "what_to_say_if_transfer_fails": null,
+    "transfer_announcement": "One moment, I'm connecting you with our scheduling team"
+  },
+  "integration_constraints": [
+    "never create jobs for residential service \u2014 we only do commercial and industrial",
+    "never book any job labelled \"residential panel upgrade\" \u2014 those all need a quote first",
+    "FieldEdge constraint \u2014 no residential jobs"
+  ],
+  "after_hours_flow_summary": "After hours, the agent confirms whether the issue is an emergency. Emergency calls are immediately routed to on-call staff. Non-emergency calls receive a message-taking flow with a next-business-day callback promise.",
+  "office_hours_flow_summary": "During business hours (Monday, Tuesday, Wednesday, Thursday, Friday 07:00\u201316:30 Denver), calls are answered and routed to the main office or scheduling desk. If transfer fails, a message is taken and callback is promised.",
+  "questions_or_unknowns": null,
+  "notes": "Extracted from demo_call transcript via rule-based engine. Updated to v2 from onboarding call on 2026-03-03.",
+  "extraction_confidence": {
+    "company_name": "high",
+    "business_hours": "high",
+    "emergency_definition": "high",
+    "emergency_routing_rules": "high",
+    "call_transfer_rules": "high"
+  },
+  "_patch_log": [
+    {
+      "field": "integration_constraints",
+      "action": "merged",
+      "added": [
+        "never book any job labelled \"residential panel upgrade\" \u2014 those all need a quote first",
+        "FieldEdge constraint \u2014 no residential jobs"
+      ],
+      "source": "onboarding_call",
+      "reason": "New items added during onboarding"
+    },
+    {
+      "field": "business_hours",
+      "action": "updated",
+      "changed_subfields": [
+        "business_hours.end"
+      ],
+      "source": "onboarding_call",
+      "reason": "Fields updated during onboarding"
+    },
+    {
+      "field": "office_hours_flow_summary",
+      "action": "regenerated",
+      "reason": "Regenerated due to business hours change"
+    }
+  ],
+  "_conflicts": [
+    {
+      "field": "business_hours.end",
+      "v1_value": "16:00",
+      "v2_value": "16:30",
+      "source": "onboarding_call"
+    }
+  ]
+}

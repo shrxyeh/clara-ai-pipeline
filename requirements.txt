@@ -1,0 +1,12 @@
+# Clara AI Pipeline — Python Dependencies
+# Zero external LLM APIs. All processing is local and zero-cost.
+
+# Schema validation (optional but recommended)
+jsonschema>=4.17.0
+
+# Audio transcription (optional — only needed if inputs are audio files)
+# Uncomment to enable local Whisper transcription:
+# openai-whisper>=20231117
+
+# Standard library only beyond this point — no other runtime deps required.
+# Python 3.10+ required.

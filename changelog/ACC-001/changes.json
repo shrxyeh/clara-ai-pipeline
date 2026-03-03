@@ -1,0 +1,128 @@
+{
+  "account_id": "ACC-001",
+  "generated_at": "2026-03-03T15:26:29.479841+00:00",
+  "version_transition": "v1_to_v2",
+  "memo_changes": [
+    {
+      "field": "business_hours",
+      "change_type": "object_modified",
+      "sub_changes": [
+        {
+          "field": "business_hours.days",
+          "change_type": "list_modified",
+          "added": [
+            "Saturday"
+          ],
+          "removed": []
+        }
+      ]
+    },
+    {
+      "field": "emergency_definition",
+      "change_type": "list_modified",
+      "added": [
+        "property damage",
+        "screeching noise"
+      ],
+      "removed": []
+    },
+    {
+      "field": "integration_constraints",
+      "change_type": "list_modified",
+      "added": [
+        "never schedule any job type called \"Chimney Sweep\" \u2014 we trialed it and pulled out",
+        "ServiceTitan constraint \u2014 no sprinkler or fire suppression jobs"
+      ],
+      "removed": []
+    },
+    {
+      "field": "office_address",
+      "change_type": "object_modified",
+      "sub_changes": [
+        {
+          "field": "office_address.full",
+          "change_type": "value_changed",
+          "old": "4820 Westview Drive, Columbus, Ohio, 43214",
+          "new": "4820 Westview Drive, Columbus, Ohio 43214"
+        }
+      ]
+    },
+    {
+      "field": "office_hours_flow_summary",
+      "change_type": "value_changed",
+      "old": "During business hours (Monday, Tuesday, Wednesday, Thursday, Friday 07:00\u201318:00 New_York), calls are answered and routed to the main office or scheduling desk. If transfer fails, a message is taken and callback is promised.",
+      "new": "During business hours (Monday, Tuesday, Wednesday, Thursday, Friday, Saturday 07:00\u201318:00 New_York), calls are answered and routed to the main office or scheduling desk. If transfer fails, a message is taken and callback is promised."
+    },
+    {
+      "field": "source",
+      "change_type": "value_changed",
+      "old": "demo_call",
+      "new": "onboarding_call"
+    }
+  ],
+  "spec_changes": [
+    {
+      "field": "key_variables",
+      "change_type": "object_modified",
+      "sub_changes": [
+        {
+          "field": "key_variables.business_hours_days",
+          "change_type": "value_changed",
+          "old": "Monday through Friday",
+          "new": "Monday through Saturday"
+        },
+        {
+          "field": "key_variables.office_address",
+          "change_type": "value_changed",
+          "old": "4820 Westview Drive, Columbus, Ohio, 43214",
+          "new": "4820 Westview Drive, Columbus, Ohio 43214"
+        }
+      ]
+    }
+  ],
+  "conflicts_resolved": [
+    {
+      "field": "office_address.full",
+      "v1_value": "4820 Westview Drive, Columbus, Ohio, 43214",
+      "v2_value": "4820 Westview Drive, Columbus, Ohio 43214",
+      "source": "onboarding_call"
+    }
+  ],
+  "patch_log": [
+    {
+      "field": "emergency_definition",
+      "action": "merged",
+      "added": [
+        "property damage",
+        "screeching noise"
+      ],
+      "source": "onboarding_call",
+      "reason": "New items added during onboarding"
+    },
+    {
+      "field": "integration_constraints",
+      "action": "merged",
+      "added": [
+        "never schedule any job type called \"Chimney Sweep\" \u2014 we trialed it and pulled out",
+        "ServiceTitan constraint \u2014 no sprinkler or fire suppression jobs"
+      ],
+      "source": "onboarding_call",
+      "reason": "New items added during onboarding"
+    },
+    {
+      "field": "office_address",
+      "action": "updated",
+      "changed_subfields": [
+        "office_address.full"
+      ],
+      "source": "onboarding_call",
+      "reason": "Fields updated during onboarding"
+    },
+    {
+      "field": "office_hours_flow_summary",
+      "action": "regenerated",
+      "reason": "Regenerated due to business hours change"
+    }
+  ],
+  "total_changes": 7
+}

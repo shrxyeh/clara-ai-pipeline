@@ -1,0 +1,194 @@
+{
+  "name": "Clara AI — Pipeline A: Demo Call → v1 Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "trigger-schedule",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [180, 300],
+      "notes": "Optional: runs automatically. For manual runs use 'Execute Workflow' trigger."
+    },
+    {
+      "parameters": {
+        "path": "={{ $env.REPO_ROOT }}/dataset/demo",
+        "fileExtensions": "txt,m4a,mp3,wav"
+      },
+      "id": "read-demo-files",
+      "name": "Read Demo Files",
+      "type": "n8n-nodes-base.readBinaryFiles",
+      "typeVersion": 1,
+      "position": [400, 300],
+      "notes": "Reads all files from dataset/demo directory"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Detect file type and extract account_id from filename or content\nconst items = $input.all();\nconst outputs = [];\n\nfor (const item of items) {\n  const fileName = item.json.fileName || '';\n  const isAudio = /\\.(m4a|mp3|wav|ogg)$/i.test(fileName);\n  \n  // Extract account_id from filename pattern: demo_001.txt → ACC-001\n  const numMatch = fileName.match(/(\\d{3})/);\n  const accountId = numMatch ? `ACC-${numMatch[1]}` : 'ACC-UNKNOWN';\n  \n  outputs.push({\n    json: {\n      file_path: item.json.filePath,\n      file_name: fileName,\n      account_id: accountId,\n      is_audio: isAudio,\n      pipeline: 'pipeline_a',\n    },\n    binary: item.binary,\n  });\n}\n\nreturn outputs;"
+      },
+      "id": "normalize-files",
+      "name": "Normalize File Metadata",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [620, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.is_audio }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "check-audio",
+      "name": "Is Audio?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [840, 300]
+    },
+    {
+      "parameters": {
+        "command": "cd {{ $env.REPO_ROOT }} && python3 scripts/run_batch.py --pipeline a --account {{ $json.account_id }} --log-level INFO"
+      },
+      "id": "run-whisper-then-extract",
+      "name": "Transcribe + Extract (Audio)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1060, 200],
+      "notes": "Runs Whisper transcription then extraction for audio files"
+    },
+    {
+      "parameters": {
+        "command": "cd {{ $env.REPO_ROOT }} && python3 scripts/run_batch.py --pipeline a --account {{ $json.account_id }} --log-level INFO"
+      },
+      "id": "extract-transcript",
+      "name": "Extract from Transcript",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1060, 400],
+      "notes": "Runs rule-based extraction on text transcript"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse extraction output and load generated files\nconst stdout = $json.stdout || '';\nconst accountId = $json.account_id;\nconst repoRoot = process.env.REPO_ROOT || '.';\nconst fs = require('fs');\nconst path = require('path');\n\nlet memo = null;\nlet spec = null;\nlet hasError = false;\nlet errorMsg = '';\n\ntry {\n  const memoPath = path.join(repoRoot, 'outputs', 'accounts', accountId, 'v1', 'account_memo.json');\n  const specPath = path.join(repoRoot, 'outputs', 'accounts', accountId, 'v1', 'retell_agent_spec.json');\n  \n  if (fs.existsSync(memoPath)) {\n    memo = JSON.parse(fs.readFileSync(memoPath, 'utf8'));\n  }\n  if (fs.existsSync(specPath)) {\n    spec = JSON.parse(fs.readFileSync(specPath, 'utf8'));\n  }\n} catch (e) {\n  hasError = true;\n  errorMsg = e.message;\n}\n\nreturn [{\n  json: {\n    account_id: accountId,\n    company_name: memo?.company_name || 'Unknown',\n    status: hasError ? 'error' : 'success',\n    error: errorMsg,\n    memo_version: memo?.version,\n    spec_version: spec?.version,\n    unknowns: memo?.questions_or_unknowns || [],\n    hygiene_pass: spec?.prompt_hygiene_checklist,\n    pipeline_stdout: stdout,\n  }\n}];"
+      },
+      "id": "load-v1-outputs",
+      "name": "Load v1 Outputs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1280, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Create tracker task entry\nconst item = $json;\nconst repoRoot = process.env.REPO_ROOT || '.';\nconst { execSync } = require('child_process');\n\ntry {\n  execSync(\n    `cd ${repoRoot} && python3 scripts/tracker.py`,\n    { stdio: 'inherit' }\n  );\n} catch (e) {\n  // Non-blocking\n}\n\nreturn [{\n  json: {\n    ...item,\n    task_created: true,\n    tracker_path: `${repoRoot}/changelog/tasks.json`,\n  }\n}];"
+      },
+      "id": "create-task",
+      "name": "Create Tracker Task",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1500, 300],
+      "notes": "Logs to local tasks.json. Optionally creates GitHub Issue if GITHUB_TOKEN is set."
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.status }}",
+              "operation": "notEqual",
+              "value2": "success"
+            }
+          ]
+        }
+      },
+      "id": "check-success",
+      "name": "Success?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1720, 300]
+    },
+    {
+      "parameters": {
+        "message": "Pipeline A ERROR for {{ $json.account_id }}: {{ $json.error }}",
+        "appendAttribution": false
+      },
+      "id": "log-error",
+      "name": "Log Error",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [1940, 200]
+    },
+    {
+      "parameters": {
+        "message": "Pipeline A SUCCESS: {{ $json.account_id }} ({{ $json.company_name }}) — v1 memo and spec generated."
+      },
+      "id": "log-success",
+      "name": "Log Success",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [1940, 400]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [[{"node": "Read Demo Files", "type": "main", "index": 0}]]
+    },
+    "Read Demo Files": {
+      "main": [[{"node": "Normalize File Metadata", "type": "main", "index": 0}]]
+    },
+    "Normalize File Metadata": {
+      "main": [[{"node": "Is Audio?", "type": "main", "index": 0}]]
+    },
+    "Is Audio?": {
+      "main": [
+        [{"node": "Transcribe + Extract (Audio)", "type": "main", "index": 0}],
+        [{"node": "Extract from Transcript", "type": "main", "index": 0}]
+      ]
+    },
+    "Transcribe + Extract (Audio)": {
+      "main": [[{"node": "Load v1 Outputs", "type": "main", "index": 0}]]
+    },
+    "Extract from Transcript": {
+      "main": [[{"node": "Load v1 Outputs", "type": "main", "index": 0}]]
+    },
+    "Load v1 Outputs": {
+      "main": [[{"node": "Create Tracker Task", "type": "main", "index": 0}]]
+    },
+    "Create Tracker Task": {
+      "main": [[{"node": "Success?", "type": "main", "index": 0}]]
+    },
+    "Success?": {
+      "main": [
+        [{"node": "Log Error", "type": "main", "index": 0}],
+        [{"node": "Log Success", "type": "main", "index": 0}]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": ""
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "clara-ai-pipeline-a"
+  },
+  "tags": [
+    {"name": "clara-ai"},
+    {"name": "pipeline-a"},
+    {"name": "demo-to-v1"}
+  ],
+  "_description": "Pipeline A: Ingests demo call transcripts/audio, extracts structured Account Memo v1, generates Retell Agent Spec v1, creates tracker task. Zero-cost: uses local Python scripts for all processing."
+}

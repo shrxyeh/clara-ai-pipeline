@@ -1,0 +1,78 @@
+{
+  "account_id": "ACC-005",
+  "company_name": "Greentech Mechanical Contractors",
+  "version": "v1",
+  "created_at": "2026-03-03T15:18:09.852741+00:00",
+  "updated_at": null,
+  "source": "demo_call",
+  "business_hours": {
+    "days": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "start": "07:00",
+    "end": "17:00",
+    "timezone": "America/Chicago",
+    "notes": null
+  },
+  "office_address": {
+    "full": "3700 Airport Way South, Seattle, WA 98108",
+    "street": "3700 Airport Way South",
+    "city": "Seattle",
+    "state": "WA",
+    "zip": "98108"
+  },
+  "services_supported": [
+    "Hvac",
+    "Refrigeration",
+    "Chiller",
+    "Building Automation",
+    "Mechanical"
+  ],
+  "emergency_definition": [
+    "refrigeration failure",
+    "chiller failure",
+    "temperature loss"
+  ],
+  "emergency_routing_rules": {
+    "primary_contact": "David",
+    "primary_phone": "206-555-0677",
+    "secondary_contact": "David",
+    "secondary_phone": "206-555-0677",
+    "fallback": "Fallback message: gather contact info and advise them we'll have someone there within two hours; if it's a food safety issue, call the health department if needed",
+    "order": [
+      "206-555-0600",
+      "206-555-0677"
+    ]
+  },
+  "non_emergency_routing_rules": {
+    "action": "message_and_callback",
+    "voicemail_number": null,
+    "callback_promise": "next business day",
+    "notes": null
+  },
+  "call_transfer_rules": {
+    "timeout_seconds": 45,
+    "retries": 1,
+    "what_to_say_if_transfer_fails": null,
+    "transfer_announcement": "Please hold while I connect you to our service team"
+  },
+  "integration_constraints": [
+    "Never create jobs for residential; strictly commercial",
+    "never create a preventive maintenance job without first confirming the contract number \u2014 the"
+  ],
+  "after_hours_flow_summary": "After hours, the agent confirms whether the issue is an emergency. Emergency calls are immediately routed to on-call staff. Non-emergency calls receive a message-taking flow with a next-business-day callback promise.",
+  "office_hours_flow_summary": "During business hours (Monday, Tuesday, Wednesday, Thursday, Friday 07:00\u201317:00 Chicago), calls are answered and routed to the main office or scheduling desk. If transfer fails, a message is taken and callback is promised.",
+  "questions_or_unknowns": null,
+  "notes": "Extracted from demo_call transcript via rule-based engine.",
+  "extraction_confidence": {
+    "company_name": "high",
+    "business_hours": "high",
+    "emergency_definition": "high",
+    "emergency_routing_rules": "high",
+    "call_transfer_rules": "high"
+  }
+}

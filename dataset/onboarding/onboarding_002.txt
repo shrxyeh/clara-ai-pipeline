@@ -1,0 +1,49 @@
+ACCOUNT: ACC-002
+TYPE: ONBOARDING CALL
+COMPANY: Clearflow Plumbing & Drain
+
+---
+
+Onboarding Specialist (Clara AI): Hi Sandra, let's go through the Clearflow configuration to make sure everything is accurate.
+
+Client (Sandra Reyes): Sure, go ahead.
+
+Specialist: Business hours: Monday to Friday, 8 AM to 5 PM Central. Address: 1120 Cesar Chavez Street, Austin TX 78702. Correct?
+
+Client: The hours changed a bit. We now open at 7:30 AM to better catch early morning calls before people leave for work.
+
+Specialist: So Monday-Friday, 7:30 AM to 5 PM Central?
+
+Client: Correct.
+
+Specialist: Emergencies: burst pipe, major water leak, sewage backup inside home, no hot water for elderly/medical, flooding.
+
+Client: Yes, and add: water heater explosion risk or any smoke coming from appliances. Those need immediate dispatch too.
+
+Specialist: Got it. Emergency routing: Ramirez at 512-555-0310, then Dana at 512-555-0389, then callback?
+
+Client: Ramirez's number changed. His new cell is 512-555-0322. Dana is still the same.
+
+Specialist: Updated. Non-emergency after hours — voicemail at 512-555-0300 ext 9?
+
+Client: Yes, still the same.
+
+Specialist: Business hours transfer to 512-555-0300, then Patricia at 512-555-0315?
+
+Client: Patricia left the company. Her replacement is Carlos, reachable at 512-555-0318.
+
+Specialist: Updated. ServiceTrade constraints — no gas line jobs, no weekend bookings via ServiceTrade?
+
+Client: Correct on both. Add one more: if anyone asks about sewer line replacement as a full excavation project, flag it for our estimating team separately. Those are big-ticket items that need a site visit before anything gets booked.
+
+Specialist: Noted. Transfer timeout was 30 seconds, one retry?
+
+Client: We want to change that to 45 seconds. We found 30 seconds wasn't enough sometimes when our team is getting off a call.
+
+Specialist: 45 seconds, one retry. Anything else?
+
+Client: Can the agent mention that we offer a free first-time diagnostic for new customers? During business hours only.
+
+Specialist: Yes, I'll add that as a business hours note.
+
+Client: Perfect, I think that's everything.

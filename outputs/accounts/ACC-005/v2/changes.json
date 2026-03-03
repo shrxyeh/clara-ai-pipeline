@@ -1,0 +1,133 @@
+{
+  "account_id": "ACC-005",
+  "generated_at": "2026-03-03T15:26:29.518977+00:00",
+  "version_transition": "v1_to_v2",
+  "memo_changes": [
+    {
+      "field": "emergency_definition",
+      "change_type": "list_modified",
+      "added": [
+        "chemical hazard"
+      ],
+      "removed": []
+    },
+    {
+      "field": "emergency_routing_rules",
+      "change_type": "object_modified",
+      "sub_changes": [
+        {
+          "field": "emergency_routing_rules.primary_phone",
+          "change_type": "value_changed",
+          "old": "206-555-0677",
+          "new": "206-555-0600"
+        }
+      ]
+    },
+    {
+      "field": "integration_constraints",
+      "change_type": "list_modified",
+      "added": [
+        "never create a service job for a site not already in our ServiceTrade customer list",
+        "ServiceTrade constraints \u2014 no residential, PM jobs need contract number"
+      ],
+      "removed": []
+    },
+    {
+      "field": "office_address",
+      "change_type": "object_modified",
+      "sub_changes": [
+        {
+          "field": "office_address.full",
+          "change_type": "value_changed",
+          "old": "3700 Airport Way South, Seattle, WA 98108",
+          "new": "3700 Airport Way South, Seattle WA 98108"
+        }
+      ]
+    },
+    {
+      "field": "source",
+      "change_type": "value_changed",
+      "old": "demo_call",
+      "new": "onboarding_call"
+    }
+  ],
+  "spec_changes": [
+    {
+      "field": "key_variables",
+      "change_type": "object_modified",
+      "sub_changes": [
+        {
+          "field": "key_variables.office_address",
+          "change_type": "value_changed",
+          "old": "3700 Airport Way South, Seattle, WA 98108",
+          "new": "3700 Airport Way South, Seattle WA 98108"
+        },
+        {
+          "field": "key_variables.emergency_routing_primary",
+          "change_type": "value_changed",
+          "old": "206-555-0677",
+          "new": "206-555-0600"
+        }
+      ]
+    }
+  ],
+  "conflicts_resolved": [
+    {
+      "field": "emergency_routing_rules.primary_phone",
+      "v1_value": "206-555-0677",
+      "v2_value": "206-555-0600",
+      "source": "onboarding_call"
+    },
+    {
+      "field": "office_address.full",
+      "v1_value": "3700 Airport Way South, Seattle, WA 98108",
+      "v2_value": "3700 Airport Way South, Seattle WA 98108",
+      "source": "onboarding_call"
+    }
+  ],
+  "patch_log": [
+    {
+      "field": "emergency_definition",
+      "action": "merged",
+      "added": [
+        "chemical hazard"
+      ],
+      "source": "onboarding_call",
+      "reason": "New items added during onboarding"
+    },
+    {
+      "field": "integration_constraints",
+      "action": "merged",
+      "added": [
+        "never create a service job for a site not already in our ServiceTrade customer list",
+        "ServiceTrade constraints \u2014 no residential, PM jobs need contract number"
+      ],
+      "source": "onboarding_call",
+      "reason": "New items added during onboarding"
+    },
+    {
+      "field": "emergency_routing_rules",
+      "action": "updated",
+      "changed_subfields": [
+        "emergency_routing_rules.primary_phone"
+      ],
+      "source": "onboarding_call",
+      "reason": "Fields updated during onboarding"
+    },
+    {
+      "field": "office_address",
+      "action": "updated",
+      "changed_subfields": [
+        "office_address.full"
+      ],
+      "source": "onboarding_call",
+      "reason": "Fields updated during onboarding"
+    },
+    {
+      "field": "office_hours_flow_summary",
+      "action": "regenerated",
+      "reason": "Regenerated due to business hours change"
+    }
+  ],
+  "total_changes": 6
+}

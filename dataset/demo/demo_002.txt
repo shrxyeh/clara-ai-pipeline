@@ -1,0 +1,51 @@
+ACCOUNT: ACC-002
+TYPE: DEMO CALL
+COMPANY: Clearflow Plumbing & Drain
+
+---
+
+Sales Rep (Clara AI): Hi, I'm with Clara AI. I'd like to learn about Clearflow's operations so we can configure your virtual receptionist properly.
+
+Client (Sandra Reyes, Office Manager): Of course. We're Clearflow Plumbing and Drain — residential and commercial plumbing, drain cleaning, water heaters, the works.
+
+Sales Rep: What are your office hours?
+
+Client: Monday to Friday, eight AM to five PM, Central time. We're based in Austin, Texas. Office is at 1120 Cesar Chavez Street, Austin, TX 78702.
+
+Sales Rep: Do you work weekends?
+
+Client: We have an on-call tech on Saturdays but it's emergency only. We're completely closed Sundays.
+
+Sales Rep: What constitutes an emergency for you?
+
+Client: Burst pipe, major water leak that can't be shut off, sewage backup inside the home, no hot water in cold weather for elderly or medical clients, and any flooding. Those all need immediate response.
+
+Sales Rep: Who does the AI route emergency calls to?
+
+Client: Our on-call dispatcher, Ramirez, at 512-555-0310. If he doesn't answer in 45 seconds, escalate to the owner, Dana, at 512-555-0389. If both fail, ask the caller to leave their address and phone number and assure them a tech will call back within 30 minutes.
+
+Sales Rep: For non-emergency after-hours?
+
+Client: Just let them leave a voicemail. Our office voicemail is 512-555-0300 ext 9.
+
+Sales Rep: During business hours, how should calls be handled?
+
+Client: Transfer to the main line, 512-555-0300. If no answer after 30 seconds, try our scheduling coordinator, Patricia, at 512-555-0315.
+
+Sales Rep: Any software integrations we need to respect?
+
+Client: We use ServiceTrade. Important: do not create any jobs for gas line work — we're strictly water and drain. And never schedule weekend jobs through ServiceTrade; those are booked manually.
+
+Sales Rep: Transfer timeout?
+
+Client: 30 seconds. Retry once. If both attempts fail, take a message.
+
+Sales Rep: Anything the agent should say when transferring?
+
+Client: Yes — say "Please hold while I connect you with our team." Don't just dead-transfer.
+
+Sales Rep: Any notes on how you want the agent to come across?
+
+Client: Professional but warm. Our clients are mostly homeowners, so friendly is important.
+
+Sales Rep: Got it. I think we have everything we need.

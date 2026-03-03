@@ -1,0 +1,49 @@
+ACCOUNT: ACC-005
+TYPE: ONBOARDING CALL
+COMPANY: Greentech Mechanical Contractors
+
+---
+
+Onboarding Specialist (Clara AI): Hi David, let's run through the Greentech Mechanical configuration to finalize it.
+
+Client (David Nguyen): Sure, let's go.
+
+Specialist: Address: 3700 Airport Way South, Seattle WA 98108. Hours: Monday-Friday 7 AM to 5 PM Pacific time?
+
+Client: Address is correct. Hours changed — we now go until 6 PM. We extended an hour to handle East Coast clients in a more reasonable window.
+
+Specialist: Monday-Friday 7 AM to 6 PM Pacific?
+
+Client: Yes.
+
+Specialist: Emergency triggers: refrigeration failure at food service, HVAC failure at hospital or care facility, chiller failure, temperature loss causing health risk or equipment damage.
+
+Client: Correct. Also add: ammonia refrigerant leak — that's a chemical hazard and needs immediate dispatch plus potentially emergency services.
+
+Specialist: Added. Emergency routing: central dispatch 206-555-0600, then David at 206-555-0677, then 2-hour callback?
+
+Client: Yes, the dispatch number is correct. I want to lower the 2-hour commitment to 90 minutes — we've improved our response time.
+
+Specialist: Updated to 90-minute callback commitment. Non-emergency after hours — capture name, callback, site address, issue description?
+
+Client: Yes. Also add: if caller flags it as urgent, escalate to David regardless, even after hours.
+
+Specialist: Got it. Business hours: main 206-555-0600, then Sarah at 206-555-0612?
+
+Client: Sarah moved to a new number — she's at 206-555-0619 now.
+
+Specialist: Updated. ServiceTrade constraints — no residential, PM jobs need contract number?
+
+Client: Yes, still correct. One new constraint: never create a service job for a site not already in our ServiceTrade customer list. New sites need to go through our account setup process first.
+
+Specialist: Noted. Transfer timeout 45 seconds, one retry?
+
+Client: We want two retries now. We had a few cases where one attempt wasn't enough.
+
+Specialist: 45 seconds, two retries. Anything else?
+
+Client: Can the AI mention that callers can reach our online portal at greentech.service for non-urgent requests? During business hours messaging.
+
+Specialist: Yes, I'll add that as a note to the business hours flow.
+
+Client: Great, that's everything.

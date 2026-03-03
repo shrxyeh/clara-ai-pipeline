@@ -1,0 +1,127 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://clara-ai/schemas/retell_agent_spec.schema.json",
+  "title": "RetellAgentSpec",
+  "description": "Retell AI agent configuration spec generated from account memo. Output this JSON to manually import into Retell UI.",
+  "type": "object",
+  "required": ["agent_name", "version", "system_prompt", "created_at"],
+  "additionalProperties": false,
+  "properties": {
+    "agent_name": {
+      "type": "string",
+      "description": "Display name for the Retell agent, e.g. 'ABC Plumbing Virtual Receptionist'"
+    },
+    "version": {
+      "type": "string",
+      "enum": ["v1", "v2"],
+      "description": "Spec version"
+    },
+    "account_id": {
+      "type": "string",
+      "description": "Links back to the account memo"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "voice_style": {
+      "type": "object",
+      "description": "Basic voice settings for the Retell agent",
+      "properties": {
+        "voice_id": {
+          "type": "string",
+          "description": "Retell voice ID to use. Default: 'professional_female' placeholder",
+          "default": "11labs-Adrian"
+        },
+        "language": {
+          "type": "string",
+          "default": "en-US"
+        },
+        "tone": {
+          "type": "string",
+          "enum": ["professional", "friendly", "neutral"],
+          "default": "professional"
+        },
+        "speaking_rate": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 2.0,
+          "default": 1.0
+        }
+      }
+    },
+    "system_prompt": {
+      "type": "string",
+      "description": "Full system prompt for the agent. Must include: office_hours_flow, after_hours_flow, transfer_protocol, transfer_fail_protocol. Must NOT mention 'tools' or 'function calls' to caller."
+    },
+    "key_variables": {
+      "type": "object",
+      "description": "Runtime variables injected into the prompt",
+      "properties": {
+        "timezone": { "type": ["string", "null"] },
+        "business_hours_start": { "type": ["string", "null"] },
+        "business_hours_end": { "type": ["string", "null"] },
+        "business_hours_days": { "type": ["string", "null"] },
+        "office_address": { "type": ["string", "null"] },
+        "emergency_routing_primary": { "type": ["string", "null"] },
+        "emergency_routing_secondary": { "type": ["string", "null"] },
+        "emergency_fallback": { "type": ["string", "null"] },
+        "company_name": { "type": ["string", "null"] },
+        "services_list": { "type": ["string", "null"] }
+      }
+    },
+    "tool_invocation_placeholders": {
+      "type": "array",
+      "description": "Internal tool stubs used by agent. NEVER revealed to callers.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string", "description": "Internal use only — never spoken to caller" },
+          "trigger": { "type": "string" }
+        }
+      }
+    },
+    "call_transfer_protocol": {
+      "type": "object",
+      "description": "How the agent handles call transfers",
+      "properties": {
+        "method": { "type": "string", "enum": ["warm_transfer", "cold_transfer", "ivr"] },
+        "announcement": { "type": ["string", "null"], "description": "What agent says before transferring" },
+        "timeout_seconds": { "type": ["integer", "null"] },
+        "retries": { "type": ["integer", "null"] }
+      }
+    },
+    "transfer_fail_protocol": {
+      "type": "object",
+      "description": "What agent does when transfer fails",
+      "properties": {
+        "message_to_caller": { "type": "string" },
+        "collect_info": { "type": "boolean", "description": "Whether to collect name/number/address" },
+        "promise_callback": { "type": ["boolean", "null"] },
+        "escalation": { "type": ["string", "null"] }
+      }
+    },
+    "prompt_hygiene_checklist": {
+      "type": "object",
+      "description": "Auto-generated validation that prompt meets required structure",
+      "properties": {
+        "has_office_hours_flow": { "type": "boolean" },
+        "has_after_hours_flow": { "type": "boolean" },
+        "has_transfer_protocol": { "type": "boolean" },
+        "has_transfer_fail_protocol": { "type": "boolean" },
+        "mentions_tools_to_caller": { "type": "boolean", "description": "Must be false" },
+        "collects_name_and_number": { "type": "boolean" },
+        "has_anything_else_close": { "type": "boolean" }
+      }
+    },
+    "retell_import_instructions": {
+      "type": "string",
+      "description": "Step-by-step instructions for manually importing this spec into Retell UI"
+    }
+  }
+}

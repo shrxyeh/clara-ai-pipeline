@@ -1,0 +1,55 @@
+ACCOUNT: ACC-005
+TYPE: DEMO CALL
+COMPANY: Greentech Mechanical Contractors
+
+---
+
+Sales Rep (Clara AI): Hi, thanks for the time. Tell me about Greentech Mechanical.
+
+Client (David Nguyen, GM): We're Greentech Mechanical — we do commercial HVAC, refrigeration, and building automation systems. Based out of Seattle, Washington.
+
+Sales Rep: What's your office address?
+
+Client: 3700 Airport Way South, Seattle, WA 98108.
+
+Sales Rep: Business hours?
+
+Client: Monday to Friday. Seven AM to five PM, Pacific time.
+
+Sales Rep: Weekends?
+
+Client: Emergency calls only on weekends. No scheduled work.
+
+Sales Rep: What's an emergency?
+
+Client: Refrigeration failure at a food service facility — that's the big one. Also: complete HVAC failure in a hospital or care facility, chiller failure, any situation where temperature loss could cause health risk or major equipment damage.
+
+Sales Rep: Emergency routing?
+
+Client: Call our central dispatch, 206-555-0600. That's 24/7 staffed. If for some reason they don't answer in 60 seconds, call me, David, at 206-555-0677. Fallback message: gather contact info and advise them we'll have someone there within two hours; if it's a food safety issue, call the health department if needed.
+
+Sales Rep: Non-emergency after hours?
+
+Client: Take a message. We have a ticket system — ideally the AI captures: caller name, callback number, site address, description of issue. We'll get back to them next business day unless they flag it urgent.
+
+Sales Rep: Business hours routing?
+
+Client: Main line 206-555-0600. If busy after 45 seconds, try our service coordinator Sarah at 206-555-0612.
+
+Sales Rep: Software?
+
+Client: ServiceTrade. Never create jobs for residential; strictly commercial. Also, never create a preventive maintenance job without first confirming the contract number — the PM jobs have to be tied to a contract.
+
+Sales Rep: Transfer timeout and retries?
+
+Client: 45 seconds timeout, one retry.
+
+Sales Rep: Transfer announcement?
+
+Client: "Please hold while I connect you to our service team."
+
+Sales Rep: Anything else?
+
+Client: Just make sure the AI is clear about what it can and can't help with. We don't want callers to feel like they're getting the runaround.
+
+Sales Rep: Absolutely. I think we're all set.

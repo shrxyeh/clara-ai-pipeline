@@ -1,0 +1,53 @@
+ACCOUNT: ACC-003
+TYPE: DEMO CALL
+COMPANY: Bolt Electric Services
+
+---
+
+Sales Rep (Clara AI): Thanks for meeting with me. Can you tell me a bit about Bolt Electric and how your phones work?
+
+Client (James Okafor, Operations Director): Sure. Bolt Electric — commercial and industrial electrical work. Based in Phoenix, Arizona.
+
+Sales Rep: Office address?
+
+Client: 9400 N. 19th Avenue, Suite 200, Phoenix, AZ 85021.
+
+Sales Rep: What are your business hours?
+
+Client: Monday through Friday, seven to four-thirty PM, Mountain Standard Time. We observe MST year-round — we don't do daylight saving.
+
+Sales Rep: And after hours?
+
+Client: We have emergency electricians on call 24/7. An emergency is: complete power outage at a commercial facility, exposed wiring or arcing, electrical fire risk, panel failure, or any situation posing immediate safety risk.
+
+Sales Rep: Routing for emergencies?
+
+Client: First call the emergency dispatch line: 602-555-0444. That's a 24/7 line. If they don't respond in 45 seconds, call my cell, James, at 602-555-0512. Last resort — tell the caller to call 911 if there's immediate danger, and that we'll have someone there within 2 hours otherwise.
+
+Sales Rep: Non-emergency after hours?
+
+Client: Take down their name, phone, location, and description of the problem. Email it to our dispatch system — but if that's not possible, just store it. We'll review first thing in the morning.
+
+Sales Rep: During business hours?
+
+Client: Transfer to main office: 602-555-0400. If busy or no answer in 45 seconds, try our project coordinator, Lisa Chen, at 602-555-0421.
+
+Sales Rep: Software?
+
+Client: We use FieldEdge. Constraint: never create jobs for residential service — we only do commercial and industrial. Residential calls should be politely redirected.
+
+Sales Rep: How long for transfer timeout?
+
+Client: 45 seconds. Two retries total.
+
+Sales Rep: Anything specific about how transfers should be announced?
+
+Client: Tell the caller "One moment, I'm connecting you with our scheduling team." Keep it simple.
+
+Sales Rep: Any other notes?
+
+Client: We're a B2B shop, so the agent should come across as efficient and knowledgeable. Less warmth, more competence.
+
+Sales Rep: Understood. I think we have a complete picture.
+
+Client: Yeah, that should cover it.
