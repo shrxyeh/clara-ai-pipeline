@@ -31,8 +31,7 @@
     "Ventilation",
     "Air Conditioning",
     "Fire Suppression",
-    "Sprinkler",
-    "Ventilation"
+    "Sprinkler"
   ],
   "emergency_definition": [
     "no heat",
