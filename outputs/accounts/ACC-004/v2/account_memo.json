@@ -2,8 +2,8 @@
   "account_id": "ACC-004",
   "company_name": "PureFlow Fire & Water Restoration",
   "version": "v2",
-  "created_at": "2026-03-03T15:18:09.844824+00:00",
-  "updated_at": "2026-03-03T15:26:29.508900+00:00",
+  "created_at": "2026-03-04T19:54:41.789318+00:00",
+  "updated_at": "2026-03-04T19:55:25.233630+00:00",
   "source": "onboarding_call",
   "business_hours": {
     "days": [
@@ -16,7 +16,7 @@
     "start": "08:00",
     "end": "17:00",
     "timezone": "America/Denver",
-    "notes": null
+    "notes": "But honestly \u2014 we're a restoration company, disasters don't keep business hours. Our after-hours emergency line is always staffed."
   },
   "office_address": {
     "full": "2255 Blake Street, Denver, CO 80205",
@@ -26,59 +26,67 @@
     "zip": "80205"
   },
   "services_supported": [
+    "water damage",
+    "fire damage cleanup",
+    "mold remediation",
+    "sewage cleanup",
     "Sewage",
-    "Fire Damage",
-    "Water Damage",
-    "Mold Remediation",
-    "Sewage Cleanup",
-    "Restoration",
     "Biohazard",
-    "Crime Scene Cleanup"
+    "Crime Scene Cleanup",
+    "Restoration"
   ],
   "emergency_definition": [
+    "Active water intrusion \u2014 burst pipe, flooding, storm damage.",
+    "Fire or smoke damage when the incident is fresh.",
+    "Sewage backup.",
+    "Basically anything where delay causes more damage.",
+    "If someone's standing in three inches of water, that's a call we need to take now.",
     "burst pipe",
     "flooding",
     "flood",
     "active water",
     "sewage backup",
-    "fire damage",
     "smoke damage",
     "mold",
     "biohazard"
   ],
   "emergency_routing_rules": {
-    "primary_contact": null,
+    "primary_contact": "Our 24/7 emergency coordinator",
     "primary_phone": "720-555-0211",
-    "secondary_contact": "lead Kevin",
+    "secondary_contact": "operations lead Kevin",
     "secondary_phone": "720-555-0288",
-    "fallback": "If both fail, take full contact info \u2014 name, address, description of damage \u2014 and promise a callback within 15 minutes",
+    "fallback": "take full contact info \u2014 name, address, description of damage \u2014 and promise a callback within 15 minutes.",
     "order": [
+      "primary_contact",
+      "secondary_contact",
+      "fallback",
       "720-555-0211",
       "720-555-0288",
       "720-555-0290"
     ]
   },
   "non_emergency_routing_rules": {
-    "action": "message_and_callback",
+    "action": "Message and callback.",
     "voicemail_number": null,
-    "callback_promise": "callback within 15 minutes.",
+    "callback_promise": "confirm we'll call during business hours to schedule an assessment.",
     "notes": null
   },
   "call_transfer_rules": {
     "timeout_seconds": 30,
     "retries": 1,
-    "what_to_say_if_transfer_fails": "If both fail, take full contact info \u2014 name, address, description of damage \u2014 and promise a callback within 15 minutes",
-    "transfer_announcement": "I'm connecting you with our restoration team right away"
+    "what_to_say_if_transfer_fails": null,
+    "transfer_announcement": "I'm connecting you with our restoration team right away."
   },
   "integration_constraints": [
-    "Never create jobs in Dash for roofing claims \u2014 we have a separate partner who handles that",
+    "Never create jobs in Dash for roofing claims \u2014 we have a separate partner who handles that.",
+    "Restoration jobs only.",
     "never create an estimate in Dash without a confirmed site inspection date",
     "Dash constraint \u2014 no roofing claims"
   ],
   "after_hours_flow_summary": "After hours, the agent confirms whether the issue is an emergency. Emergency calls are immediately routed to on-call staff. Non-emergency calls receive a message-taking flow with a next-business-day callback promise.",
   "office_hours_flow_summary": "During business hours (Monday, Tuesday, Wednesday, Thursday, Friday 08:00\u201317:00 Denver), calls are answered and routed to the main office or scheduling desk. If transfer fails, a message is taken and callback is promised.",
   "questions_or_unknowns": null,
-  "notes": "Extracted from demo_call transcript via rule-based engine. Updated to v2 from onboarding call on 2026-03-03.",
+  "notes": "Extracted from demo_call transcript via gemini-2.0-flash. Updated to v2 from onboarding call on 2026-03-04.",
   "extraction_confidence": {
     "company_name": "high",
     "business_hours": "high",
@@ -91,6 +99,13 @@
       "field": "emergency_definition",
       "action": "merged",
       "added": [
+        "burst pipe",
+        "flooding",
+        "flood",
+        "active water",
+        "sewage backup",
+        "smoke damage",
+        "mold",
         "biohazard"
       ],
       "source": "onboarding_call",
@@ -100,8 +115,10 @@
       "field": "services_supported",
       "action": "merged",
       "added": [
+        "Sewage",
         "Biohazard",
-        "Crime Scene Cleanup"
+        "Crime Scene Cleanup",
+        "Restoration"
       ],
       "source": "onboarding_call",
       "reason": "New items added during onboarding"

@@ -2,8 +2,8 @@
   "agent_name": "Arctic Air HVAC Solutions Virtual Receptionist",
   "version": "v2",
   "account_id": "ACC-001",
-  "created_at": "2026-03-03T15:26:29.479613+00:00",
-  "updated_at": "2026-03-03T15:26:29.479725+00:00",
+  "created_at": "2026-03-04T19:56:13.618540+00:00",
+  "updated_at": "2026-03-04T19:56:13.618887+00:00",
   "voice_style": {
     "voice_id": "11labs-Adrian",
     "language": "en-US",

@@ -1,12 +1,12 @@
-# Clara AI Pipeline — Python Dependencies
-# Zero external LLM APIs. All processing is local and zero-cost.
+# Clara AI — Python 3.10+
 
-# Schema validation (optional but recommended)
+# LLM extraction (Gemini 2.5 Flash, free tier)
+# Get API key: https://aistudio.google.com/apikey
+google-genai>=1.0.0
+python-dotenv>=1.0.0
+
+# Schema validation
 jsonschema>=4.17.0
 
-# Audio transcription (optional — only needed if inputs are audio files)
-# Uncomment to enable local Whisper transcription:
+# Audio transcription (optional — uncomment if using .m4a/.mp3/.wav inputs)
 # openai-whisper>=20231117
-
-# Standard library only beyond this point — no other runtime deps required.
-# Python 3.10+ required.

@@ -22,6 +22,13 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+# Load .env (GEMINI_API_KEY etc.) before importing pipeline modules
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).parent.parent / ".env")
+except ImportError:
+    pass  # python-dotenv not installed — env vars must be set manually
+
 sys.path.insert(0, str(Path(__file__).parent))
 
 import extractor

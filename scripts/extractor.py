@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
 """
-Rule-based transcript extraction engine.
+Transcript extraction engine.
 
-Parses demo/onboarding call transcripts and extracts structured data
-into the AccountMemo schema using regex + keyword matching.
+Tries Gemini LLM extraction first; falls back to regex if the API key is absent
+or the call fails. Set GEMINI_API_KEY in .env to enable LLM mode.
 """
 
 import re
 import logging
 from datetime import datetime, timezone
 from typing import Optional
+
+try:
+    from llm_extractor import extract_with_gemini
+    _LLM_AVAILABLE = True
+except ImportError:
+    _LLM_AVAILABLE = False
 
 logger = logging.getLogger(__name__)
 
@@ -512,9 +518,25 @@ def _identify_unknowns(memo: dict) -> list:
     return unknowns
 
 
+def _merge_llm_with_regex(llm: dict, field: str, regex_val) -> any:
+    """Return LLM value if non-null, otherwise fall back to regex value."""
+    v = llm.get(field)
+    if v is None:
+        return regex_val
+    if isinstance(v, dict) and not any(v.values()):
+        return regex_val
+    if isinstance(v, list) and len(v) == 0:
+        return regex_val
+    return v
+
+
 def extract_memo(text: str, source_file: str = "") -> dict:
     """
     Parse a transcript and return a structured account memo dict.
+
+    Extraction strategy:
+      1. Try Gemini LLM (structured JSON, handles freeform conversations).
+      2. Fall back to regex for any null fields or if LLM unavailable.
     Missing fields are left as None and surfaced in questions_or_unknowns.
     """
     logger.info(f"Extracting memo from: {source_file or 'input text'}")
@@ -524,26 +546,42 @@ def extract_memo(text: str, source_file: str = "") -> dict:
     source = _extract_source(text)
     now = datetime.now(timezone.utc).isoformat()
 
-    bh = _extract_business_hours(text)
-    if not any(bh.values()):
-        bh = None
+    llm_result = extract_with_gemini(text, account_id, mode="demo") if _LLM_AVAILABLE else None
+    extraction_method = "gemini-2.0-flash" if llm_result else "regex"
 
-    address = _extract_address(text)
-    services = _extract_services(text)
-    emergencies = _extract_emergencies(text)
+    bh_regex = _extract_business_hours(text)
+    if not any(bh_regex.values()):
+        bh_regex = None
 
-    emergency_routing = _extract_routing_contacts(
-        text,
-        ["emergency", "who should", "who to call", "emergency routing", "dispatch"]
+    address_regex  = _extract_address(text)
+    services_regex = _extract_services(text)
+    emerg_regex    = _extract_emergencies(text)
+    er_regex       = _extract_routing_contacts(
+        text, ["emergency", "who should", "who to call", "emergency routing", "dispatch"]
     )
-    non_emergency = _extract_non_emergency_routing(text)
-    transfer = _extract_transfer_rules(text)
-    constraints = _extract_integration_constraints(text)
+    ne_regex       = _extract_non_emergency_routing(text)
+    tr_regex       = _extract_transfer_rules(text)
+    con_regex      = _extract_integration_constraints(text)
+
+    if llm_result:
+        # Use LLM values; plug regex into any null fields
+        bh         = _merge_llm_with_regex(llm_result, "business_hours", bh_regex)
+        address    = _merge_llm_with_regex(llm_result, "office_address", address_regex)
+        services   = _merge_llm_with_regex(llm_result, "services_supported", services_regex)
+        emergencies= _merge_llm_with_regex(llm_result, "emergency_definition", emerg_regex)
+        er         = _merge_llm_with_regex(llm_result, "emergency_routing_rules", er_regex)
+        non_emerg  = _merge_llm_with_regex(llm_result, "non_emergency_routing_rules", ne_regex)
+        transfer   = _merge_llm_with_regex(llm_result, "call_transfer_rules", tr_regex)
+        constraints= _merge_llm_with_regex(llm_result, "integration_constraints", con_regex)
+        company_name = llm_result.get("company_name") or company_name
+    else:
+        bh, address, services, emergencies = bh_regex, address_regex, services_regex, emerg_regex
+        er, non_emerg, transfer, constraints = er_regex, ne_regex, tr_regex, con_regex
 
     bh_days = ", ".join(bh["days"]) if bh and bh.get("days") else "your business hours"
     bh_start = bh["start"] if bh and bh.get("start") else "opening time"
-    bh_end = bh["end"] if bh and bh.get("end") else "closing time"
-    bh_tz = bh["timezone"].split("/")[-1] if bh and bh.get("timezone") else ""
+    bh_end   = bh["end"]   if bh and bh.get("end")   else "closing time"
+    bh_tz    = bh["timezone"].split("/")[-1] if bh and bh.get("timezone") else ""
 
     office_hours_summary = (
         f"During business hours ({bh_days} {bh_start}–{bh_end} {bh_tz}), "
@@ -568,14 +606,14 @@ def extract_memo(text: str, source_file: str = "") -> dict:
         "office_address": address,
         "services_supported": services if services else None,
         "emergency_definition": emergencies if emergencies else None,
-        "emergency_routing_rules": emergency_routing if any(emergency_routing.values()) else None,
-        "non_emergency_routing_rules": non_emergency if any(non_emergency.values()) else None,
-        "call_transfer_rules": transfer if any(transfer.values()) else None,
+        "emergency_routing_rules": er if (er and any(er.values())) else None,
+        "non_emergency_routing_rules": non_emerg if (non_emerg and any(non_emerg.values())) else None,
+        "call_transfer_rules": transfer if (transfer and any(transfer.values())) else None,
         "integration_constraints": constraints if constraints else None,
         "after_hours_flow_summary": after_hours_summary,
         "office_hours_flow_summary": office_hours_summary,
         "questions_or_unknowns": None,
-        "notes": f"Extracted from {source} transcript via rule-based engine.",
+        "notes": f"Extracted from {source} transcript via {extraction_method}.",
         "extraction_confidence": None,
     }
 
@@ -584,7 +622,7 @@ def extract_memo(text: str, source_file: str = "") -> dict:
     memo["questions_or_unknowns"] = unknowns if unknowns else None
 
     logger.info(
-        f"Extraction complete for {account_id}: "
+        f"Extraction complete for {account_id} [{extraction_method}]: "
         f"confidence={memo['extraction_confidence']}, unknowns={len(unknowns)}"
     )
     return memo
@@ -593,70 +631,98 @@ def extract_memo(text: str, source_file: str = "") -> dict:
 def extract_onboarding_updates(text: str, source_file: str = "") -> dict:
     """
     Extract the delta (changed/confirmed fields) from an onboarding transcript.
-    Returns only fields that were explicitly updated — does not overwrite untouched v1 data.
+
+    LLM path:   Gemini identifies which fields changed and returns only those.
+    Regex path: Signal-word detection fallback for each field category.
+
+    Returns only fields that were explicitly updated — never overwrites untouched v1 data.
     """
     logger.info(f"Extracting onboarding updates from: {source_file or 'input text'}")
 
     full = extract_memo(text, source_file)
     full["version"] = "v2"
     full["source"] = "onboarding_call"
+    account_id = full.get("account_id", "ACC-UNKNOWN")
+
+    llm_delta = extract_with_gemini(text, account_id, mode="onboarding") if _LLM_AVAILABLE else None
 
     updates = {}
     text_lower = text.lower()
 
-    change_signals = [
-        "changed", "change", "updated", "update", "new", "now", "actually",
-        "correction", "correct that", "revised", "revised to", "pushed to",
-        "extended", "reduced", "different", "moved to", "instead",
-    ]
+    if llm_delta:
+        # Build updates directly from LLM-identified changed fields
+        changed = llm_delta.get("changed_fields") or []
+        for field in changed:
+            val = llm_delta.get(field)
+            if val is not None:
+                # For lists, only take non-empty
+                if isinstance(val, list) and len(val) == 0:
+                    continue
+                # For dicts, only take if at least one value is non-null
+                if isinstance(val, dict) and not any(v for v in val.values() if v is not None):
+                    continue
+                updates[field] = val
+
+        extraction_method = "gemini-2.0-flash"
+    else:
+        extraction_method = "regex"
+
+        change_signals = [
+            "changed", "change", "updated", "update", "new", "now", "actually",
+            "correction", "correct that", "revised", "revised to", "pushed to",
+            "extended", "reduced", "different", "moved to", "instead",
+        ]
+
+        bh = _extract_business_hours(text)
+        if bh and any(bh.values()):
+            time_change = re.search(
+                r'(?:changed|now|extended|pushed|open|opens)\s+[^.]{0,50}'
+                r'(\d{1,2}(?::\d{2})?\s*(?:AM|PM))',
+                text, re.IGNORECASE
+            )
+            if time_change or any(s in text_lower for s in ["changed", "extended", "pushed to", "now open"]):
+                updates["business_hours"] = bh
+
+        address = _extract_address(text)
+        if address and re.search(r'(?:new (?:location|office|address)|second (?:location|office)|moved)', text, re.IGNORECASE):
+            updates["office_address"] = address
+
+        er = _extract_routing_contacts(text, ["emergency", "dispatch", "routing"])
+        if er and any(er.values()):
+            if re.search(r'(?:number changed|new (?:number|cell)|updated to|changed to|correct number)', text, re.IGNORECASE):
+                updates["emergency_routing_rules"] = er
+
+        tr = _extract_transfer_rules(text)
+        if tr and any(tr.values()):
+            if re.search(r'(?:change|reduce|extend|want to change|now want)\s+(?:that|the timeout|the retry)', text, re.IGNORECASE):
+                updates["call_transfer_rules"] = tr
+
+        new_emergencies = _extract_emergencies(text)
+        if new_emergencies and re.search(r'(?:add|also add|also include|new emergency)', text, re.IGNORECASE):
+            updates["emergency_definition"] = new_emergencies
+
+        new_constraints = _extract_integration_constraints(text)
+        if new_constraints:
+            updates["integration_constraints"] = new_constraints
+
+        new_services = _extract_services(text)
+        if new_services and re.search(r'(?:added a service|new service|we now do|also do)', text, re.IGNORECASE):
+            updates["services_supported"] = new_services
 
     changed_lines = [
         line.strip() for line in text.split('\n')
-        if any(sig in line.lower() for sig in change_signals)
+        if any(sig in line.lower() for sig in [
+            "changed", "update", "new", "now", "correction", "revised", "extended"
+        ])
     ]
-
-    bh = _extract_business_hours(text)
-    if bh and any(bh.values()):
-        time_change = re.search(
-            r'(?:changed|now|extended|pushed|open|opens)\s+[^.]{0,50}'
-            r'(\d{1,2}(?::\d{2})?\s*(?:AM|PM))',
-            text, re.IGNORECASE
-        )
-        if time_change or any(s in text_lower for s in ["changed", "extended", "pushed to", "now open"]):
-            updates["business_hours"] = bh
-
-    address = _extract_address(text)
-    if address and re.search(r'(?:new (?:location|office|address)|second (?:location|office)|moved)', text, re.IGNORECASE):
-        updates["office_address"] = address
-
-    er = _extract_routing_contacts(text, ["emergency", "dispatch", "routing"])
-    if er and any(er.values()):
-        if re.search(r'(?:number changed|new (?:number|cell)|updated to|changed to|correct number)', text, re.IGNORECASE):
-            updates["emergency_routing_rules"] = er
-
-    tr = _extract_transfer_rules(text)
-    if tr and any(tr.values()):
-        if re.search(r'(?:change|reduce|extend|want to change|now want)\s+(?:that|the timeout|the retry)', text, re.IGNORECASE):
-            updates["call_transfer_rules"] = tr
-
-    new_emergencies = _extract_emergencies(text)
-    if new_emergencies and re.search(r'(?:add|also add|also include|new emergency)', text, re.IGNORECASE):
-        updates["emergency_definition"] = new_emergencies
-
-    new_constraints = _extract_integration_constraints(text)
-    if new_constraints:
-        updates["integration_constraints"] = new_constraints
-
-    new_services = _extract_services(text)
-    if new_services and re.search(r'(?:added a service|new service|we now do|also do)', text, re.IGNORECASE):
-        updates["services_supported"] = new_services
-
     updates["_onboarding_changed_lines"] = changed_lines
     updates["_source_file"] = source_file
+    updates["_extraction_method"] = extraction_method
 
+    changed_fields = [k for k in updates if not k.startswith("_")]
     logger.info(
-        f"Onboarding delta extracted for {full['account_id']}: "
-        f"changed_fields={list(k for k in updates if not k.startswith('_'))}"
+        f"Onboarding delta extracted for {account_id} [{extraction_method}]: "
+        f"changed_fields={changed_fields}"
     )
 
     return {"full_extraction": full, "delta": updates}

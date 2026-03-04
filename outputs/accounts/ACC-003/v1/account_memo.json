@@ -2,7 +2,7 @@
   "account_id": "ACC-003",
   "company_name": "Bolt Electric Services",
   "version": "v1",
-  "created_at": "2026-03-03T15:18:09.835144+00:00",
+  "created_at": "2026-03-04T19:54:40.719600+00:00",
   "updated_at": null,
   "source": "demo_call",
   "business_hours": {
@@ -65,7 +65,7 @@
   "after_hours_flow_summary": "After hours, the agent confirms whether the issue is an emergency. Emergency calls are immediately routed to on-call staff. Non-emergency calls receive a message-taking flow with a next-business-day callback promise.",
   "office_hours_flow_summary": "During business hours (Monday, Tuesday, Wednesday, Thursday, Friday 07:00\u201316:00 Denver), calls are answered and routed to the main office or scheduling desk. If transfer fails, a message is taken and callback is promised.",
   "questions_or_unknowns": null,
-  "notes": "Extracted from demo_call transcript via rule-based engine.",
+  "notes": "Extracted from demo_call transcript via regex.",
   "extraction_confidence": {
     "company_name": "high",
     "business_hours": "high",

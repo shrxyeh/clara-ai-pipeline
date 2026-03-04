@@ -1,30 +1,19 @@
 {
   "account_id": "ACC-004",
-  "generated_at": "2026-03-03T15:26:29.509286+00:00",
+  "generated_at": "2026-03-04T19:55:25.238351+00:00",
   "version_transition": "v1_to_v2",
   "memo_changes": [
-    {
-      "field": "call_transfer_rules",
-      "change_type": "object_modified",
-      "sub_changes": [
-        {
-          "field": "call_transfer_rules.retries",
-          "change_type": "value_changed",
-          "old": null,
-          "new": 1
-        },
-        {
-          "field": "call_transfer_rules.timeout_seconds",
-          "change_type": "value_changed",
-          "old": null,
-          "new": 30
-        }
-      ]
-    },
     {
       "field": "emergency_definition",
       "change_type": "list_modified",
       "added": [
+        "burst pipe",
+        "flooding",
+        "flood",
+        "active water",
+        "sewage backup",
+        "smoke damage",
+        "mold",
         "biohazard"
       ],
       "removed": []
@@ -37,6 +26,8 @@
           "field": "emergency_routing_rules.order",
           "change_type": "list_modified",
           "added": [
+            "720-555-0211",
+            "720-555-0288",
             "720-555-0290"
           ],
           "removed": []
@@ -56,8 +47,10 @@
       "field": "services_supported",
       "change_type": "list_modified",
       "added": [
+        "Sewage",
         "Biohazard",
-        "Crime Scene Cleanup"
+        "Crime Scene Cleanup",
+        "Restoration"
       ],
       "removed": []
     },
@@ -70,26 +63,14 @@
   ],
   "spec_changes": [
     {
-      "field": "call_transfer_protocol",
-      "change_type": "object_modified",
-      "sub_changes": [
-        {
-          "field": "call_transfer_protocol.timeout_seconds",
-          "change_type": "value_changed",
-          "old": 45,
-          "new": 30
-        }
-      ]
-    },
-    {
       "field": "key_variables",
       "change_type": "object_modified",
       "sub_changes": [
         {
           "field": "key_variables.services_list",
           "change_type": "value_changed",
-          "old": "Sewage, Fire Damage, Water Damage, Mold Remediation, Sewage Cleanup, Restoration",
-          "new": "Sewage, Fire Damage, Water Damage, Mold Remediation, Sewage Cleanup, Restoration, Biohazard, Crime Scene Cleanup"
+          "old": "Water Damage, Fire Damage Cleanup, Mold Remediation, Sewage Cleanup",
+          "new": "Water Damage, Fire Damage Cleanup, Mold Remediation, Sewage Cleanup, Sewage, Biohazard, Crime Scene Cleanup, Restoration"
         }
       ]
     }
@@ -100,6 +81,13 @@
       "field": "emergency_definition",
       "action": "merged",
       "added": [
+        "burst pipe",
+        "flooding",
+        "flood",
+        "active water",
+        "sewage backup",
+        "smoke damage",
+        "mold",
         "biohazard"
       ],
       "source": "onboarding_call",
@@ -109,8 +97,10 @@
       "field": "services_supported",
       "action": "merged",
       "added": [
+        "Sewage",
         "Biohazard",
-        "Crime Scene Cleanup"
+        "Crime Scene Cleanup",
+        "Restoration"
       ],
       "source": "onboarding_call",
       "reason": "New items added during onboarding"
@@ -131,5 +121,5 @@
       "reason": "Regenerated due to business hours change"
     }
   ],
-  "total_changes": 8
+  "total_changes": 6
 }

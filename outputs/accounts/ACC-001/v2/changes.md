@@ -1,7 +1,7 @@
 # Changelog: Arctic Air HVAC Solutions (ACC-001)
 
 **Version transition:** v1 → v2
-**Generated:** 2026-03-03 15:26:29 UTC
+**Generated:** 2026-03-04 19:56:13 UTC
 **Source:** Onboarding call transcript
 
 ---
@@ -38,12 +38,12 @@
 ## Retell Agent Spec Changes
 
 - **`key_variables`**: updated
-  - **`key_variables.business_hours_days`**: changed
-    - Before: `Monday through Friday`
-    - After:  `Monday through Saturday`
   - **`key_variables.office_address`**: changed
     - Before: `4820 Westview Drive, Columbus, Ohio, 43214`
     - After:  `4820 Westview Drive, Columbus, Ohio 43214`
+  - **`key_variables.business_hours_days`**: changed
+    - Before: `Monday through Friday`
+    - After:  `Monday through Saturday`
 
 ---
 

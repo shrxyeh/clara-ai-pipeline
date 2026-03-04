@@ -7,14 +7,14 @@
       "pipeline": "pipeline_a",
       "status": "completed",
       "created_at": "2026-03-03T13:01:47.119420+00:00",
-      "updated_at": "2026-03-03T15:38:42.895423+00:00",
+      "updated_at": "2026-03-04T19:56:11.612166+00:00",
       "v1_outputs": [
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-001/v1/account_memo.json",
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-001/v1/retell_agent_spec.json"
       ],
       "v2_outputs": [],
       "changelog_path": null,
-      "notes": "v1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)"
+      "notes": "v1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04"
     },
     {
       "task_id": "937ba795",
@@ -23,14 +23,14 @@
       "pipeline": "pipeline_a",
       "status": "completed",
       "created_at": "2026-03-03T13:01:47.147700+00:00",
-      "updated_at": "2026-03-03T15:38:42.901327+00:00",
+      "updated_at": "2026-03-04T19:54:40.716499+00:00",
       "v1_outputs": [
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-002/v1/account_memo.json",
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-002/v1/retell_agent_spec.json"
       ],
       "v2_outputs": [],
       "changelog_path": null,
-      "notes": "v1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)"
+      "notes": "v1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04"
     },
     {
       "task_id": "331b761c",
@@ -39,14 +39,14 @@
       "pipeline": "pipeline_a",
       "status": "completed",
       "created_at": "2026-03-03T13:01:47.167196+00:00",
-      "updated_at": "2026-03-03T15:38:42.906614+00:00",
+      "updated_at": "2026-03-04T19:54:41.787774+00:00",
       "v1_outputs": [
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-003/v1/account_memo.json",
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-003/v1/retell_agent_spec.json"
       ],
       "v2_outputs": [],
       "changelog_path": null,
-      "notes": "v1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)"
+      "notes": "v1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04"
     },
     {
       "task_id": "83bcaa50",
@@ -55,14 +55,14 @@
       "pipeline": "pipeline_a",
       "status": "completed",
       "created_at": "2026-03-03T13:01:47.194501+00:00",
-      "updated_at": "2026-03-03T15:38:42.912388+00:00",
+      "updated_at": "2026-03-04T19:54:56.773870+00:00",
       "v1_outputs": [
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-004/v1/account_memo.json",
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-004/v1/retell_agent_spec.json"
       ],
       "v2_outputs": [],
       "changelog_path": null,
-      "notes": "v1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)"
+      "notes": "v1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04"
     },
     {
       "task_id": "6c7a5d67",
@@ -71,14 +71,14 @@
       "pipeline": "pipeline_a",
       "status": "completed",
       "created_at": "2026-03-03T13:01:47.212215+00:00",
-      "updated_at": "2026-03-03T15:38:42.922341+00:00",
+      "updated_at": "2026-03-04T19:54:57.748917+00:00",
       "v1_outputs": [
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-005/v1/account_memo.json",
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-005/v1/retell_agent_spec.json"
       ],
       "v2_outputs": [],
       "changelog_path": null,
-      "notes": "v1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)"
+      "notes": "v1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nv1 generated from demo call on 2026-03-03\nSkipped (already exists)\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04\nv1 generated from demo call on 2026-03-04"
     },
     {
       "task_id": "139bbe82",
@@ -87,7 +87,7 @@
       "pipeline": "pipeline_b",
       "status": "completed",
       "created_at": "2026-03-03T13:01:55.326917+00:00",
-      "updated_at": "2026-03-03T15:26:29.481997+00:00",
+      "updated_at": "2026-03-04T19:56:13.627140+00:00",
       "v1_outputs": [
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-001/v1/account_memo.json",
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-001/v1/retell_agent_spec.json"
@@ -97,7 +97,7 @@
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-001/v2/retell_agent_spec.json"
       ],
       "changelog_path": "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-001/v2/changes.md",
-      "notes": "v2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts."
+      "notes": "v2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-04. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-04. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-04. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-04. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-04. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-04. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-04. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-04. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-04. 4 changes, 1 conflicts."
     },
     {
       "task_id": "2cbd71f4",
@@ -106,7 +106,7 @@
       "pipeline": "pipeline_b",
       "status": "completed",
       "created_at": "2026-03-03T13:01:55.372826+00:00",
-      "updated_at": "2026-03-03T15:26:29.491284+00:00",
+      "updated_at": "2026-03-04T19:55:21.411849+00:00",
       "v1_outputs": [
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-002/v1/account_memo.json",
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-002/v1/retell_agent_spec.json"
@@ -116,7 +116,7 @@
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-002/v2/retell_agent_spec.json"
       ],
       "changelog_path": "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-002/v2/changes.md",
-      "notes": "v2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts."
+      "notes": "v2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-04. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-04. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-04. 3 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-04. 3 changes, 0 conflicts."
     },
     {
       "task_id": "166d2fe2",
@@ -125,7 +125,7 @@
       "pipeline": "pipeline_b",
       "status": "completed",
       "created_at": "2026-03-03T13:01:55.422127+00:00",
-      "updated_at": "2026-03-03T15:26:29.500654+00:00",
+      "updated_at": "2026-03-04T19:55:23.279943+00:00",
       "v1_outputs": [
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-003/v1/account_memo.json",
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-003/v1/retell_agent_spec.json"
@@ -135,7 +135,7 @@
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-003/v2/retell_agent_spec.json"
       ],
       "changelog_path": "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-003/v2/changes.md",
-      "notes": "v2 generated from onboarding on 2026-03-03. 2 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 1 conflicts."
+      "notes": "v2 generated from onboarding on 2026-03-03. 2 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 3 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-04. 3 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-04. 3 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-04. 3 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-04. 3 changes, 1 conflicts."
     },
     {
       "task_id": "1eafccf0",
@@ -144,7 +144,7 @@
       "pipeline": "pipeline_b",
       "status": "completed",
       "created_at": "2026-03-03T13:01:55.477995+00:00",
-      "updated_at": "2026-03-03T15:26:29.511462+00:00",
+      "updated_at": "2026-03-04T19:55:25.285056+00:00",
       "v1_outputs": [
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-004/v1/account_memo.json",
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-004/v1/retell_agent_spec.json"
@@ -154,7 +154,7 @@
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-004/v2/retell_agent_spec.json"
       ],
       "changelog_path": "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-004/v2/changes.md",
-      "notes": "v2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts."
+      "notes": "v2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-03. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-04. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-04. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-04. 4 changes, 0 conflicts.\nv2 generated from onboarding on 2026-03-04. 4 changes, 0 conflicts."
     },
     {
       "task_id": "ba988f96",
@@ -163,7 +163,7 @@
       "pipeline": "pipeline_b",
       "status": "completed",
       "created_at": "2026-03-03T13:01:55.533690+00:00",
-      "updated_at": "2026-03-03T15:26:29.521106+00:00",
+      "updated_at": "2026-03-04T19:55:27.275828+00:00",
       "v1_outputs": [
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-005/v1/account_memo.json",
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-005/v1/retell_agent_spec.json"
@@ -173,8 +173,8 @@
         "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-005/v2/retell_agent_spec.json"
       ],
       "changelog_path": "/home/shrxyeh/ClaraAi/outputs/accounts/ACC-005/v2/changes.md",
-      "notes": "v2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 5 changes, 2 conflicts.\nv2 generated from onboarding on 2026-03-03. 5 changes, 2 conflicts.\nv2 generated from onboarding on 2026-03-03. 5 changes, 2 conflicts.\nv2 generated from onboarding on 2026-03-03. 5 changes, 2 conflicts.\nv2 generated from onboarding on 2026-03-03. 5 changes, 2 conflicts.\nv2 generated from onboarding on 2026-03-03. 5 changes, 2 conflicts."
+      "notes": "v2 generated from onboarding on 2026-03-03. 4 changes, 1 conflicts.\nv2 generated from onboarding on 2026-03-03. 5 changes, 2 conflicts.\nv2 generated from onboarding on 2026-03-03. 5 changes, 2 conflicts.\nv2 generated from onboarding on 2026-03-03. 5 changes, 2 conflicts.\nv2 generated from onboarding on 2026-03-03. 5 changes, 2 conflicts.\nv2 generated from onboarding on 2026-03-03. 5 changes, 2 conflicts.\nv2 generated from onboarding on 2026-03-03. 5 changes, 2 conflicts.\nv2 generated from onboarding on 2026-03-04. 5 changes, 2 conflicts.\nv2 generated from onboarding on 2026-03-04. 5 changes, 2 conflicts.\nv2 generated from onboarding on 2026-03-04. 5 changes, 2 conflicts.\nv2 generated from onboarding on 2026-03-04. 5 changes, 2 conflicts."
     }
   ],
-  "last_updated": "2026-03-03T15:38:42.922607+00:00"
+  "last_updated": "2026-03-04T19:56:13.627311+00:00"
 }

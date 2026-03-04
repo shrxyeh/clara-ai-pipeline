@@ -1,6 +1,6 @@
 {
   "account_id": "ACC-001",
-  "generated_at": "2026-03-03T15:26:29.479841+00:00",
+  "generated_at": "2026-03-04T19:56:13.619215+00:00",
   "version_transition": "v1_to_v2",
   "memo_changes": [
     {
@@ -66,16 +66,16 @@
       "change_type": "object_modified",
       "sub_changes": [
         {
-          "field": "key_variables.business_hours_days",
-          "change_type": "value_changed",
-          "old": "Monday through Friday",
-          "new": "Monday through Saturday"
-        },
-        {
           "field": "key_variables.office_address",
           "change_type": "value_changed",
           "old": "4820 Westview Drive, Columbus, Ohio, 43214",
           "new": "4820 Westview Drive, Columbus, Ohio 43214"
+        },
+        {
+          "field": "key_variables.business_hours_days",
+          "change_type": "value_changed",
+          "old": "Monday through Friday",
+          "new": "Monday through Saturday"
         }
       ]
     }
