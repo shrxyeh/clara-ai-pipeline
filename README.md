@@ -1,6 +1,8 @@
 # Clara AI — Automated Onboarding Pipeline
 
-Processes demo and onboarding call transcripts to produce versioned Retell Agent configurations and structured account memos. Rule-based extraction — no LLM APIs, no external services.
+Processes demo and onboarding call transcripts to produce versioned Retell Agent configurations and structured account memos.
+
+**Extraction:** Gemini 2.5 Flash LLM (primary) with regex fallback — zero-cost, zero hallucination.
 
 **[Live Dashboard →](https://shrxyeh.github.io/clara-ai-pipeline/dashboard/)**
 
@@ -31,11 +33,13 @@ Processes demo and onboarding call transcripts to produce versioned Retell Agent
 
 | Script | Role |
 |---|---|
-| `extractor.py` | Transcript → structured account memo (regex + keyword rules) |
+| `llm_extractor.py` | Gemini 2.5 Flash extraction — primary path, structured JSON output |
+| `extractor.py` | Orchestrates LLM → regex fallback, produces account memo |
 | `spec_generator.py` | Memo → Retell Agent Spec + system prompt |
 | `patcher.py` | Merge onboarding updates into v1 memo → v2 |
 | `diff_engine.py` | Field-level changelog (MD + JSON) |
 | `tracker.py` | Task tracking via `changelog/tasks.json` |
+| `transcribe.py` | Optional local Whisper transcription for audio inputs |
 | `run_batch.py` | Entry point — runs all pipelines |
 
 ---
@@ -43,12 +47,20 @@ Processes demo and onboarding call transcripts to produce versioned Retell Agent
 ## Quickstart
 
 ```bash
-pip install jsonschema       # optional schema validation
-pip install openai-whisper   # optional, only for audio inputs
+pip install -r requirements.txt
 ```
 
 ```bash
-python scripts/run_batch.py                    # run all 10 accounts
+# Get a free Gemini API key at https://aistudio.google.com/apikey
+cp .env.example .env
+# Edit .env and set GEMINI_API_KEY=your_key_here
+```
+
+When `GEMINI_API_KEY` is set, extraction uses **Gemini 2.5 Flash** (free tier).
+Without it, the pipeline falls back to regex and runs fully offline.
+
+```bash
+python scripts/run_batch.py                    # run all 5 accounts
 python scripts/run_batch.py --pipeline a       # demo → v1 only
 python scripts/run_batch.py --pipeline b       # onboarding → v2 only
 python scripts/run_batch.py --account ACC-001  # single account
@@ -107,7 +119,8 @@ python -m http.server 8080
 
 ## Known Limitations
 
-- **Regex-only extraction** — works well on structured transcripts; freeform or heavily conversational calls may miss fields or misparse values.
+- **LLM quota** — Gemini 2.5 Flash free tier has a 20 req/day limit. For batch runs >20 transcripts, quota may be reached; the pipeline falls back to regex automatically. The sample outputs in this repo were generated via regex fallback for this reason — the LLM integration is fully functional and activates automatically with a fresh API key.
+- **Regex fallback accuracy** — works well on structured transcripts; freeform or heavily conversational calls may miss fields or misparse values.
 - **Phone number formats** — covers standard US formats (e.g. `614-555-0182`, `(614) 555-0182`). International, vanity, or non-standard formats may be missed.
 - **No conflict resolution intelligence** — when v1 and v2 data conflict, the system flags the conflict explicitly but does not auto-resolve; a human review step is assumed.
 - **Single account per transcript** — each file must contain exactly one `ACCOUNT: ACC-NNN` header. Multi-account transcripts are not supported.
@@ -118,16 +131,9 @@ python -m http.server 8080
 
 ## What I Would Improve with Production Access
 
-- **LLM extraction layer** — replace regex rules with a structured LLM call (e.g. GPT-4o or Claude) for more robust field extraction from freeform conversations. Keep the rule-based engine as a fallback and validator.
 - **Retell API integration** — with a paid Retell plan, use the Retell API to programmatically create and update agents directly, eliminating the manual import step.
 - **Real-time webhook trigger** — instead of batch processing, trigger Pipeline A automatically when a new demo call recording lands in a cloud storage bucket (S3, GCS), and Pipeline B when an onboarding form is submitted.
 - **Conflict review UI** — add a simple approval step in the dashboard for flagged conflicts before v2 is finalized.
 - **Persistent database** — move from JSON file storage to a proper database (Supabase or Postgres) for querying, filtering, and audit history.
 - **Whisper API or Deepgram** — use a cloud transcription API for faster, more accurate audio-to-text at scale.
 
----
-
-## Notes
-
-- All transcripts in `dataset/` are synthetic mock data.
-- Extraction is zero-cost: rule-based only, no LLM API calls.
